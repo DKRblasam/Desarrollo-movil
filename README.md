@@ -1,4 +1,4 @@
-# Desarrollo-Mobil--UPQ
+# Desarrollo-Movil--UPQ
 
 Repositorio académico que reúne:
 - Prácticas
