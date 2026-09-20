@@ -1,0 +1,326 @@
+:root {
+  --tinta: #2B3A32;
+  --tinta-suave: #4A5D52;
+  --crema: #F7F3EA;
+  --crema-panel: #FFFFFF;
+  --linea: #E3DACB;
+  --mostaza: #C99A2E;
+  --mostaza-oscura: #A97E1F;
+  --rojo-aviso: #A63D40;
+  --sombra: 0 2px 10px rgba(43, 58, 50, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Iowan Old Style", "Georgia", "Times New Roman", serif;
+  background: var(--crema);
+  color: var(--tinta);
+  line-height: 1.5;
+}
+
+h1, h2, h3 {
+  font-family: "Iowan Old Style", "Palatino Linotype", "Georgia", serif;
+  margin: 0;
+}
+
+/* ============ Encabezado ============ */
+
+.encabezado {
+  background: var(--tinta);
+  color: var(--crema);
+  padding: 1.25rem 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.marca {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.marca-icono {
+  font-size: 2rem;
+}
+
+.marca h1 {
+  font-size: 1.5rem;
+  letter-spacing: 0.02em;
+}
+
+.marca p {
+  margin: 0.1rem 0 0;
+  font-size: 0.85rem;
+  color: #C7D2C9;
+}
+
+.tabs {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.tab {
+  font-family: inherit;
+  font-size: 0.95rem;
+  padding: 0.55rem 1.1rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--crema);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.tab:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.tab.activo {
+  background: var(--mostaza);
+  color: var(--tinta);
+  font-weight: 600;
+}
+
+/* ============ Layout principal ============ */
+
+.contenido {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.panel {
+  display: none;
+  gap: 2rem;
+}
+
+.panel.activo {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+}
+
+.columna h2 {
+  font-size: 1.15rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 2px solid var(--mostaza);
+  padding-bottom: 0.4rem;
+}
+
+.columna h2.con-margen {
+  margin-top: 1.75rem;
+}
+
+/* ============ Tarjetas y listas ============ */
+
+.categoria-bloque {
+  margin-bottom: 1.5rem;
+}
+
+.categoria-bloque h3 {
+  font-size: 1rem;
+  color: var(--tinta-suave);
+  margin-bottom: 0.5rem;
+}
+
+.producto-card {
+  background: var(--crema-panel);
+  border: 1px solid var(--linea);
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+  box-shadow: var(--sombra);
+}
+
+.producto-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.producto-nombre {
+  font-weight: 600;
+}
+
+.producto-precio {
+  font-size: 0.85rem;
+  color: var(--tinta-suave);
+}
+
+.producto-accion {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cantidad-input,
+#caja-cantidad {
+  width: 3.5rem;
+  padding: 0.35rem;
+  border: 1px solid var(--linea);
+  border-radius: 6px;
+  font-family: inherit;
+}
+
+.vacio {
+  color: var(--tinta-suave);
+  font-style: italic;
+}
+
+.caja-panel {
+  background: var(--crema-panel);
+  border: 1px solid var(--linea);
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+  min-height: 3rem;
+  box-shadow: var(--sombra);
+}
+
+.lista-items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.lista-items li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.35rem 0;
+  border-bottom: 1px dashed var(--linea);
+}
+
+.lista-items li:last-child {
+  border-bottom: none;
+}
+
+.pedido-card {
+  background: var(--crema-panel);
+  border: 1px solid var(--linea);
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.6rem;
+  box-shadow: var(--sombra);
+}
+
+.pedido-card p {
+  margin: 0.3rem 0;
+  color: var(--tinta-suave);
+  font-size: 0.9rem;
+}
+
+/* ============ Botones ============ */
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.btn-principal {
+  background: var(--mostaza);
+  color: var(--tinta);
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  margin-top: 0.75rem;
+}
+
+.btn-principal:hover {
+  background: var(--mostaza-oscura);
+}
+
+.btn-secundario {
+  background: transparent;
+  border: 1px solid var(--tinta-suave);
+  color: var(--tinta-suave);
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+}
+
+.btn-editar,
+.btn-quitar,
+.btn-eliminar {
+  border: 1px solid var(--linea);
+  background: var(--crema);
+  border-radius: 6px;
+  padding: 0.35rem 0.65rem;
+  font-size: 0.85rem;
+}
+
+.btn-peligro,
+.btn-quitar {
+  color: var(--rojo-aviso);
+  border-color: #E7C9C9;
+}
+
+/* ============ Formulario de Cocina ============ */
+
+.formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  background: var(--crema-panel);
+  border: 1px solid var(--linea);
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: var(--sombra);
+}
+
+.formulario label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.9rem;
+  color: var(--tinta-suave);
+}
+
+.formulario input,
+.formulario select {
+  font-family: inherit;
+  padding: 0.5rem;
+  border: 1px solid var(--linea);
+  border-radius: 6px;
+  color: var(--tinta);
+}
+
+.acciones-form {
+  display: flex;
+  gap: 0.6rem;
+}
+
+/* ============ Totales ============ */
+
+.total-linea {
+  font-weight: 600;
+  margin: 0.5rem 0 0;
+}
+
+.total-grande {
+  font-size: 1.15rem;
+  color: var(--mostaza-oscura);
+  border-top: 2px solid var(--mostaza);
+  padding-top: 0.6rem;
+}
+
+/* ============ Responsive ============ */
+
+@media (max-width: 720px) {
+  .panel.activo {
+    grid-template-columns: 1fr;
+  }
+
+  .encabezado {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

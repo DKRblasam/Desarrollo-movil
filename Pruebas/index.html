@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>La Esquina — Tienda</title>
+<link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+
+  <header class="encabezado">
+    <div class="marca">
+      <span class="marca-icono">☕</span>
+      <div>
+        <h1>La Esquina</h1>
+        <p>Café, antojos y recuerdos de la casa</p>
+      </div>
+    </div>
+
+    <nav class="tabs">
+      <button class="tab" data-modulo="cliente">Cliente</button>
+      <button class="tab" data-modulo="cocina">Cocina</button>
+      <button class="tab" data-modulo="caja">Caja</button>
+    </nav>
+  </header>
+
+  <main class="contenido">
+
+    <!-- ================= CLIENTE ================= -->
+    <section id="panel-cliente" class="panel">
+      <div class="columna columna-ancha">
+        <h2>Menú</h2>
+        <div id="cliente-menu" class="lista-categorias"></div>
+      </div>
+
+      <div class="columna">
+        <h2>Tu pedido</h2>
+        <div id="cliente-pedido-actual" class="caja-panel"></div>
+        <p id="cliente-total" class="total-linea">Total: $0.00</p>
+        <button id="cliente-guardar" class="btn-principal">Guardar pedido</button>
+
+        <h2 class="con-margen">Tus pedidos</h2>
+        <div id="cliente-lista-pedidos" class="caja-panel"></div>
+      </div>
+    </section>
+
+    <!-- ================= COCINA ================= -->
+    <section id="panel-cocina" class="panel">
+      <div class="columna">
+        <h2 id="cocina-form-titulo">Agregar producto</h2>
+        <form id="cocina-form" class="formulario">
+          <label>
+            Nombre
+            <input type="text" name="name" required />
+          </label>
+          <label>
+            Precio
+            <input type="number" name="price" min="0.01" step="0.01" required />
+          </label>
+          <label>
+            Stock
+            <input type="number" name="stock" min="0" required />
+          </label>
+          <label>
+            Categoría
+            <select name="category" required>
+              <option value="Bebidas">Bebidas</option>
+              <option value="Alimentos">Alimentos</option>
+              <option value="Souvenirs">Souvenirs</option>
+            </select>
+          </label>
+          <label>
+            Tipo
+            <input type="text" name="tipo" placeholder="ej. caliente, dulce, cerámica" required />
+          </label>
+
+          <div class="acciones-form">
+            <button type="submit" id="cocina-guardar-btn" class="btn-principal">Agregar</button>
+            <button type="button" id="cocina-cancelar-edicion" class="btn-secundario" hidden>Cancelar</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="columna columna-ancha">
+        <h2>Existencias</h2>
+        <div id="cocina-lista" class="lista-categorias"></div>
+      </div>
+    </section>
+
+    <!-- ================= CAJA ================= -->
+    <section id="panel-caja" class="panel">
+      <div class="columna">
+        <h2>Recibir pedido</h2>
+        <div class="formulario">
+          <label>
+            Producto
+            <select id="caja-selector-producto"></select>
+          </label>
+          <label>
+            Cantidad
+            <input type="number" id="caja-cantidad" min="1" value="1" />
+          </label>
+          <button id="caja-agregar-btn" class="btn-principal">Agregar al pedido</button>
+        </div>
+
+        <h2 class="con-margen">Pedido actual</h2>
+        <div id="caja-pedido-activo" class="caja-panel"></div>
+        <p id="caja-total-actual" class="total-linea">Total del pedido: $0.00</p>
+        <button id="caja-guardar-btn" class="btn-principal">Guardar pedido</button>
+      </div>
+
+      <div class="columna columna-ancha">
+        <h2>Pedidos realizados</h2>
+        <div id="caja-historial" class="lista-categorias"></div>
+        <p id="caja-total-acumulado" class="total-linea total-grande">Total acumulado: $0.00</p>
+      </div>
+    </section>
+
+  </main>
+
+  <script type="module" src="./js/index.mjs"></script>
+</body>
+</html>
