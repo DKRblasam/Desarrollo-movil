@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Pedido</title>
+    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="tienda.css">
+</head>
+<body data-page="cliente">
+    <header class="encabezado">
+        <img src="logo-starbucks.png" alt="Starbucks Logo">
+        <h1>Mi Pedido</h1>
+    </header>
+
+    <main>
+        <section class="bienvenida">
+            <h4>Arma tu pedido</h4>
+            <p>Elige tus productos favoritos y agrégalos a tu orden.</p>
+        </section>
+
+        <section id="catalogoCliente"></section>
+
+        <section id="resumen-pedido">
+            <h4>Tu pedido</h4>
+            <div id="listaPedidoCliente"></div>
+            <p id="totalPedidoCliente" class="precio">Total: $0 MXN</p>
+            <button id="btnConfirmarPedido" type="button" class="btn-comprar">
+                Confirmar y enviar a caja
+            </button>
+        </section>
+
+        <div class="contenedor-volver-index">
+            <a href="index.html" class="btn-volver-index">← Volver al Menú Principal</a>
+        </div>
+    </main>
+
+    <script type="module" src="Index.mjs"></script>
+</body>
+</html>
