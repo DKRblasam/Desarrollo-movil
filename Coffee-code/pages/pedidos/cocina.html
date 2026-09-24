@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cocina - Administración de productos</title>
+    <link rel="stylesheet" href="../../src/css/estilos.css">
+    <link rel="stylesheet" href="../../src/css/tienda.css">
+</head>
+<body data-page="cocina">
+    <header class="encabezado">
+        <img src="../../public/images/Bebidas/logo-starbucks.png" alt="Starbucks Logo">
+        <h1>Cocina</h1>
+    </header>
+
+    <main>
+        <section class="bienvenida">
+            <h4>Administración de productos</h4>
+            <p>Agrega, edita o elimina productos del catálogo.</p>
+        </section>
+
+        <section id="formulario-producto">
+            <h4>Nuevo producto</h4>
+            <form id="formNuevoProducto" class="form-tienda">
+                <label>
+                    Nombre
+                    <input type="text" name="nombre" required>
+                </label>
+                <label>
+                    Precio (MXN)
+                    <input type="number" name="precio" min="0" step="0.01" required>
+                </label>
+                <label>
+                    Stock
+                    <input type="number" name="stock" min="0" required>
+                </label>
+                <label>
+                    Categoría
+                    <select name="categoria" required>
+                        <option value="Bebidas">Bebidas</option>
+                        <option value="Alimentos">Alimentos</option>
+                        <option value="Souvenirs">Souvenirs</option>
+                    </select>
+                </label>
+                <label>
+                    Tipo
+                    <input type="text" name="tipo" placeholder="Ej. Caliente, Fría, Taza...">
+                </label>
+                <button type="submit" class="btn-comprar">Agregar producto</button>
+            </form>
+        </section>
+
+        <section id="catalogo-cocina">
+            <h4>Catálogo actual</h4>
+            <div id="listaProductosCocina"></div>
+        </section>
+
+        <div class="contenedor-volver-index">
+            <a href="../../index.html" class="btn-volver-index">← Volver al Menú Principal</a>
+        </div>
+    </main>
+
+    <script type="module" src="../../src/js/index.mjs"></script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+/* tienda.css */
+/* Estilos adicionales para las pantallas de Cliente, Cocina y Caja.   */
+/* Complementa a estilos.css sin modificarlo.                         */
+
+.form-tienda {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.form-tienda label {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-weight: bold;
+    color: #006241;
+    font-size: 0.9rem;
+}
+
+.form-tienda input,
+.form-tienda select {
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 0.95rem;
+}
+
+.bloque-categoria h3 {
+    color: #006241;
+    margin-bottom: 10px;
+}
+
+.producto-cliente {
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.producto-cliente h4 {
+    margin: 0;
+    color: #333;
+}
+
+.producto-cocina {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+}
+
+.producto-cocina-info {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.9rem;
+}
+
+.producto-cocina-acciones button {
+    margin-left: 6px;
+    border: none;
+    border-radius: 15px;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.producto-cocina-acciones button[data-accion="editar"] {
+    background-color: #f0f0f0;
+    color: #006241;
+}
+
+.producto-cocina-acciones button[data-accion="eliminar"] {
+    background-color: #ffe0e0;
+    color: #b00020;
+}
+
+.pedido-caja {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+}
+
+.pedido-caja button {
+    background-color: #006241;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
