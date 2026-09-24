@@ -1,34 +1,36 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Caja</title>
-    <link rel="stylesheet" href="estilos.css">
-    <link rel="stylesheet" href="tienda.css">
-</head>
-<body data-page="caja">
+    <link rel="stylesheet" href="estilos.css" />
+    <link rel="stylesheet" href="tienda.css" />
+  </head>
+  <body data-page="caja">
     <header class="encabezado">
-        <img src="logo-starbucks.png" alt="Starbucks Logo">
-        <h1>Caja</h1>
+      <img src="logo-starbucks.png" alt="Starbucks Logo" />
+      <h1>Caja</h1>
     </header>
 
     <main>
-        <section class="bienvenida">
-            <h4>Pedidos recibidos</h4>
-            <p>Consulta y cobra los pedidos enviados por el cliente.</p>
-        </section>
+      <section class="bienvenida">
+        <h4>Pedidos recibidos</h4>
+        <p>Consulta y cobra los pedidos enviados por el cliente.</p>
+      </section>
 
-        <section id="pedidos-caja">
-            <div id="listaPedidosCaja"></div>
-            <p id="totalGeneralCaja" class="precio">Total acumulado: $0 MXN</p>
-        </section>
+      <section id="pedidos-caja">
+        <div id="listaPedidosCaja"></div>
+        <p id="totalGeneralCaja" class="precio">Total acumulado: $0 MXN</p>
+      </section>
 
-        <div class="contenedor-volver-index">
-            <a href="index.html" class="btn-volver-index">← Volver al Menú Principal</a>
-        </div>
+      <div class="contenedor-volver-index">
+        <a href="../../index.html" class="btn-volver-index"
+          >← Volver al Menú Principal</a
+        >
+      </div>
     </main>
 
     <script type="module" src="Index.mjs"></script>
-</body>
+  </body>
 </html>

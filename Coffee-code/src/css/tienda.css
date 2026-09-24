@@ -3,93 +3,228 @@
 /* Complementa a estilos.css sin modificarlo.                         */
 
 .form-tienda {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.form-tienda button {
+  grid-column: 1 / -1;
 }
 
 .form-tienda label {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    font-weight: bold;
-    color: #006241;
-    font-size: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-weight: bold;
+  color: #006241;
+  font-size: 0.9rem;
 }
 
 .form-tienda input,
 .form-tienda select {
-    padding: 8px 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 0.95rem;
+  padding: 12px 14px;
+  border: 1px solid #d5cec2;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  background: #fff;
+  color: #26352f;
+  font-family: inherit;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.form-tienda input:focus,
+.form-tienda select:focus,
+#inputBuscarProducto:focus {
+  outline: 3px solid rgba(0, 98, 65, 0.14);
+  border-color: #006241;
 }
 
 .bloque-categoria h3 {
-    color: #006241;
-    margin-bottom: 10px;
+  color: #006241;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #e8e1d7;
 }
 
 .producto-cliente {
-    text-align: left;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    margin-bottom: 10px;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+  padding: 14px 16px;
+  border: 1px solid #ebe5dc;
+  border-radius: 10px;
+  background: #fff;
 }
 
 .producto-cliente h4 {
-    margin: 0;
-    color: #333;
+  margin: 0;
+  color: #333;
+}
+
+.producto-cliente small {
+  color: #68786f;
+  font-size: 0.8rem;
+  margin-left: auto;
 }
 
 .producto-cocina {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    padding: 12px;
-    border-bottom: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 16px 4px;
+  border-bottom: 1px solid #e8e1d7;
 }
 
 .producto-cocina-info {
-    display: flex;
-    flex-direction: column;
-    font-size: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.9rem;
+}
+
+.producto-cocina-info strong {
+  color: #26352f;
+  font-size: 1rem;
+}
+
+#catalogo-cocina > div:first-of-type {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: end;
+  padding: 14px;
+  margin: 0 -4px 14px;
+  border-radius: 10px;
+  background: #f5f1ea;
+}
+
+#catalogo-cocina label {
+  display: flex;
+  flex: 1 1 220px;
+  flex-direction: column;
+  gap: 5px;
+  color: #006241;
+  font-size: 0.82rem;
+  font-weight: bold;
+}
+
+#inputBuscarProducto {
+  min-width: 0;
+  padding: 10px 12px;
+  border: 1px solid #d5cec2;
+  border-radius: 8px;
+  font: inherit;
+  box-sizing: border-box;
+}
+
+#catalogo-cocina > div:first-of-type button {
+  padding: 10px 14px;
+  border: 1px solid #c8d8d0;
+  border-radius: 8px;
+  background: #fffdf9;
+  color: #006241;
+  cursor: pointer;
+  font: 600 0.86rem inherit;
+}
+
+#catalogo-cocina > div:first-of-type button:hover {
+  background: #006241;
+  color: #fff;
 }
 
 .producto-cocina-acciones button {
-    margin-left: 6px;
-    border: none;
-    border-radius: 15px;
-    padding: 6px 12px;
-    cursor: pointer;
-    font-weight: bold;
+  margin-left: 6px;
+  border: none;
+  border-radius: 15px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-weight: bold;
 }
 
 .producto-cocina-acciones button[data-accion="editar"] {
-    background-color: #f0f0f0;
-    color: #006241;
+  background-color: #f0f0f0;
+  color: #006241;
 }
 
 .producto-cocina-acciones button[data-accion="eliminar"] {
-    background-color: #ffe0e0;
-    color: #b00020;
+  background-color: #ffe0e0;
+  color: #b00020;
 }
 
 .pedido-caja {
-    padding: 15px;
-    border-bottom: 1px solid #eee;
-    text-align: left;
+  padding: 15px;
+  border: 1px solid #e8e1d7;
+  border-radius: 10px;
+  margin-bottom: 12px;
+  text-align: left;
+  background: #fff;
 }
 
 .pedido-caja button {
-    background-color: #006241;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 15px;
-    font-weight: bold;
-    cursor: pointer;
+  background-color: #006241;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 15px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#promocionesCliente {
+  background: #fff8e8;
+  border-color: #f1dfb4;
+}
+
+.promo-item {
+  padding: 12px 0;
+  border-top: 1px solid #ead9b3;
+  line-height: 1.5;
+}
+
+.promo-item:first-of-type {
+  border-top: 0;
+}
+
+@media (max-width: 640px) {
+  main {
+    margin-top: 20px;
+    padding: 0 14px;
+  }
+
+  section {
+    padding: 20px 16px;
+  }
+
+  .form-tienda {
+    grid-template-columns: 1fr;
+  }
+
+  .form-tienda button {
+    grid-column: auto;
+  }
+
+  .producto-cliente {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .producto-cliente small {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .producto-cocina {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .producto-cocina-acciones button:first-child {
+    margin-left: 0;
+  }
 }

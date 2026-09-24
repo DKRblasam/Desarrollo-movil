@@ -5,7 +5,6 @@
 //   (no toca el DOM; cocina.mjs y cliente.mjs lo usan)
 // ===================================================
 
-
 // ===================================================
 //        Clase y variables de gestión de productos
 // ===================================================
@@ -314,20 +313,14 @@ export function sembrarCatalogoInicial() {
 
 // Buscar un producto por nombre
 export function buscarProducto(name) {
-  if (!name) {
-    console.log("El nombre del producto no puede estar vacío.");
-    return null;
-  }
+  if (!name) return null;
 
-  for (const categoria of existencias) {
-    const producto = categoria.prods.find((prod) => prod.name === name);
-
-    if (producto) {
-      return producto;
-    }
-  }
-
-  return null;
+  const termino = name.toLowerCase();
+  return (
+    obtenerProductos().find((producto) =>
+      producto.name.toLowerCase().includes(termino),
+    ) || null
+  );
 }
 
 // Buscar un producto por id
@@ -342,6 +335,30 @@ export function buscarProductoPorId(id) {
 // Obtener todos los productos de todas las categorías
 export function obtenerProductos() {
   return existencias.flatMap((cat) => cat.prods);
+}
+
+export function buscarProductosBaratos(umbralPrecio = 60) {
+  return obtenerProductos().filter(
+    (producto) => producto.price <= umbralPrecio,
+  );
+}
+
+export function buscarProductosCaros(umbralPrecio = 300) {
+  return obtenerProductos().filter(
+    (producto) => producto.price >= umbralPrecio,
+  );
+}
+
+export function obtenerBebidas() {
+  return obtenerProductos().filter(
+    (producto) => producto.category === "Bebidas",
+  );
+}
+
+export function obtenerPostres() {
+  return obtenerProductos().filter(
+    (producto) => producto.tipo.toLowerCase() === "dulce",
+  );
 }
 
 // Obtener todos los productos de una categoría

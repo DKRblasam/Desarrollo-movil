@@ -15,6 +15,10 @@ import {
   guardarProductos,
   cargarProductos,
   sembrarCatalogoInicial,
+  buscarProductosBaratos,
+  buscarProductosCaros,
+  obtenerBebidas,
+  obtenerPostres,
 } from "./Productos.mjs";
 
 // =============== Agregar producto ===============
@@ -162,6 +166,68 @@ function renderizarTablaProductos() {
   }
 }
 
+function renderizarProductosFiltrados(productos) {
+  const contenedor = document.getElementById("listaProductosCocina");
+  if (!contenedor) return;
+
+  contenedor.innerHTML = "";
+  if (productos.length === 0) {
+    contenedor.innerHTML = "<p>No se encontraron productos que coincidan.</p>";
+    return;
+  }
+
+  productos.forEach((producto) => {
+    const fila = document.createElement("div");
+    fila.className = "producto-cocina";
+    fila.innerHTML = `
+      <div class="producto-cocina-info">
+        <strong>${producto.name}</strong>
+        <span>${producto.category} · ${producto.tipo}</span>
+        <span>$${producto.price} MXN · Stock: ${producto.stock}</span>
+      </div>
+      <div class="producto-cocina-acciones">
+        <button type="button" data-accion="editar" data-nombre="${producto.name}">Editar</button>
+        <button type="button" data-accion="eliminar" data-nombre="${producto.name}">Eliminar</button>
+      </div>
+    `;
+    contenedor.appendChild(fila);
+  });
+}
+
+function conectarFiltros() {
+  const filtros = {
+    btnFiltrarBaratos: buscarProductosBaratos,
+    btnFiltrarCaros: buscarProductosCaros,
+    btnFiltrarBebidas: obtenerBebidas,
+    btnFiltrarPostres: obtenerPostres,
+  };
+
+  Object.entries(filtros).forEach(([id, obtenerProductosFiltrados]) => {
+    const boton = document.getElementById(id);
+    if (boton) {
+      boton.addEventListener("click", () =>
+        renderizarProductosFiltrados(obtenerProductosFiltrados()),
+      );
+    }
+  });
+
+  const mostrarTodos = document.getElementById("btnMostrarTodos");
+  if (mostrarTodos)
+    mostrarTodos.addEventListener("click", renderizarTablaProductos);
+
+  const busqueda = document.getElementById("inputBuscarProducto");
+  if (busqueda) {
+    busqueda.addEventListener("input", (evento) => {
+      const termino = evento.target.value.trim();
+      renderizarProductosFiltrados(
+        termino
+          ? [buscarProducto(termino)].filter(Boolean)
+          : obtenerProductos(),
+      );
+    });
+  }
+}
+
 function manejarEnvioFormulario(evento) {
   evento.preventDefault();
 
@@ -224,6 +290,7 @@ export function inicializarCocina() {
   sembrarCatalogoInicial();
   calcularSiguienteId();
   renderizarTablaProductos();
+  conectarFiltros();
 
   const form = document.getElementById("formNuevoProducto");
   const lista = document.getElementById("listaProductosCocina");

@@ -1,190 +1,202 @@
-
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
-    margin: 0;
-    padding: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  background: #f3f0ea;
+  color: #26352f;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
 }
 
 .encabezado {
-    background-color: #ffffff;
-    color:#006241 ;
-    padding: 15px 20px;
-    display: flex;             
-    align-items: center;       
-    justify-content: center;    
-    gap: 12px;                  
+  background: #fffdf9;
+  color: #006241;
+  padding: 22px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  border-bottom: 1px solid #e2ddd3;
 }
 
 .encabezado img {
-    width: 60px;                
-    height: 60px;               
-    object-fit: contain;
+  width: 54px;
+  height: 54px;
+  object-fit: contain;
 }
 
 main {
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 0 15px;
+  max-width: 1080px;
+  margin: 34px auto 60px;
+  padding: 0 24px;
 }
 
 section {
-    background-color: white;
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 8px;
+  background: #fffdf9;
+  padding: 28px;
+  margin-bottom: 24px;
+  border: 1px solid #e8e1d7;
+  border-radius: 14px;
+  box-shadow: 0 10px 28px rgba(54, 48, 38, 0.06);
 }
 
 .bienvenida {
-    background-color: #006241;
-    color: white;
-    text-align: center;
+  background: #006241;
+  color: white;
+  text-align: center;
+  padding: 34px 28px;
+  border: 0;
+  box-shadow: 0 14px 30px rgba(0, 98, 65, 0.16);
 }
 
 .bienvenida h4 {
-    margin: 0 0 10px 0;
-    font-size: 1.5rem;
-    color:#ffff;
+  margin: 0 0 10px 0;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  color: #ffff;
 }
 
 h4 {
-    margin-top: 0;
-    color: #006241;
+  margin-top: 0;
+  color: #006241;
 }
 
 ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 ul li {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 ul li a {
-    display: block;
-    padding: 10px 15px;
-    background-color: #f0f0f0;
-    color: #006241;
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
+  display: block;
+  padding: 10px 15px;
+  background-color: #f0f0f0;
+  color: #006241;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
 }
 
 ul li a:hover {
-    background-color: #006241;
-    color: white;
+  background-color: #006241;
+  color: white;
 }
 
 .contenedor-volver-index {
-    text-align: center;
-    margin-top: 20px;
+  text-align: center;
+  margin-top: 20px;
 }
 
-
 .btn-volver-index {
-    display: inline-block;
-    background-color: #e0e0e0;
-    color: #006241;
-    text-decoration: none;
-    padding: 10px 20px;
-    border-radius: 20px;
-    font-weight: bold;
-    font-size: 0.95rem;
-    transition: background-color 0.2s, color 0.2s;
+  display: inline-block;
+  background-color: #e0e0e0;
+  color: #006241;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 0.95rem;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
 }
 
 .btn-volver-index:hover {
-    background-color: #006241;
-    color: white;
+  background-color: #006241;
+  color: white;
 }
 
 /*Souvenirs*/
 
 .producto-item {
-    text-align: center;
-    padding: 15px;
+  text-align: center;
+  padding: 15px;
 }
-
 
 .producto-item img {
-    max-width: 140px;       
-    max-height: 140px;      
-    width: auto;
-    height: auto;
-    object-fit: contain;
-    margin-top: 10px;
-    border-radius: 8px;
-    transition: transform 0.2s ease;
+  max-width: 140px;
+  max-height: 140px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  margin-top: 10px;
+  border-radius: 8px;
+  transition: transform 0.2s ease;
 }
 
-
 .producto-item img:hover {
-    transform: scale(1.05);
+  transform: scale(1.05);
 }
 
 /*Compras*/
 
 .detalle-producto {
-    text-align: center;
-    padding: 25px 20px;
+  text-align: center;
+  padding: 25px 20px;
 }
 
 .imagen-producto img {
-    max-width: 180px;
-    max-height: 180px;
-    width: auto;
-    height: auto;
-    object-fit: contain;
-    margin-bottom: 15px;
+  max-width: 180px;
+  max-height: 180px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  margin-bottom: 15px;
 }
 
 .descripcion {
-    font-size: 0.95rem;
-    color: #555;
-    margin-bottom: 25px;
-    line-height: 1.4;
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 25px;
+  line-height: 1.4;
 }
 
-
 .acciones {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .btn-comprar {
-    background-color: #006241;
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    font-size: 1rem;
-    font-weight: bold;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: background-color 0.2s, transform 0.1s;
+  background-color: #006241;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 25px;
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    transform 0.1s;
 }
 
 .btn-comprar:hover {
-    background-color: #1e3932;
-    transform: scale(1.02);
+  background-color: #1e3932;
+  transform: scale(1.02);
 }
 
-
 .btn-volver {
-    display: inline-block;
-    background-color: #e0e0e0;
-    color: #333;
-    text-decoration: none;
-    padding: 10px 20px;
-    font-size: 0.95rem;
-    font-weight: bold;
-    border-radius: 25px;
-    transition: background-color 0.2s;
+  display: inline-block;
+  background-color: #e0e0e0;
+  color: #333;
+  text-decoration: none;
+  padding: 10px 20px;
+  font-size: 0.95rem;
+  font-weight: bold;
+  border-radius: 25px;
+  transition: background-color 0.2s;
 }
 
 .btn-volver:hover {
-    background-color: #d0d0d0;
+  background-color: #d0d0d0;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  letter-spacing: 0;
 }
