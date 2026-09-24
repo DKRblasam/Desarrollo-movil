@@ -191,6 +191,22 @@
   border-top: 0;
 }
 
+.pedido-cliente-historial {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  padding: 14px 0;
+  border-bottom: 1px solid #e8e1d7;
+}
+
+.pedido-cliente-historial:last-child {
+  border-bottom: 0;
+}
+
+.pedido-cliente-historial span {
+  color: #68786f;
+}
+
 @media (max-width: 640px) {
   main {
     margin-top: 20px;

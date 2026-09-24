@@ -6,6 +6,8 @@
 const CLAVE_STORAGE = "cafe_pedidos";
 const CLAVE_CONTADOR = "cafe_pedidos_contador";
 
+import { buscarProductoPorId, guardarProductos } from "../../Productos.mjs";
+
 export const pedidos = [];
 
 let siguienteId = Number(localStorage.getItem(CLAVE_CONTADOR)) || 1;
@@ -40,11 +42,11 @@ export function guardarPedidos() {
 export function cargarPedidos() {
   try {
     const datos = localStorage.getItem(CLAVE_STORAGE);
+    pedidos.length = 0;
     if (!datos) return;
 
     const guardado = JSON.parse(datos);
-    pedidos.length = 0;
-    pedidos.push(...guardado);
+    if (Array.isArray(guardado)) pedidos.push(...guardado);
   } catch (error) {
     console.log("No se pudieron cargar los pedidos guardados:", error.message);
   }
@@ -70,8 +72,13 @@ export function buscarPedido(id) {
 export function agregarProductoAPedido(idPedido, producto, cantidad = 1) {
   const pedido = buscarPedido(idPedido);
 
-  if (!pedido) {
+  if (!pedido || pedido.estado !== "abierto") {
     console.log(`El pedido #${idPedido} no existe.`);
+    return null;
+  }
+
+  if (!producto || !Number.isInteger(cantidad) || cantidad <= 0) {
+    console.log("El producto o la cantidad no son válidos.");
     return null;
   }
 
@@ -79,8 +86,14 @@ export function agregarProductoAPedido(idPedido, producto, cantidad = 1) {
     (item) => item.producto.id === producto.id,
   );
 
+  const cantidadSolicitada = (itemExistente?.cantidad || 0) + cantidad;
+  if (cantidadSolicitada > Number(producto.stock)) {
+    console.log(`No hay stock suficiente de "${producto.name}".`);
+    return null;
+  }
+
   if (itemExistente) {
-    itemExistente.cantidad += cantidad;
+    itemExistente.cantidad = cantidadSolicitada;
   } else {
     pedido.items.push({ producto, cantidad });
   }
@@ -140,8 +153,26 @@ export function cerrarPedido(idPedido) {
     return null;
   }
 
+  if (pedido.estado !== "abierto") return pedido;
+
+  for (const { producto, cantidad } of pedido.items) {
+    const productoActual = buscarProductoPorId(producto.id);
+    if (!productoActual || productoActual.stock < cantidad) {
+      console.log(
+        `No hay stock suficiente para cobrar el pedido #${idPedido}.`,
+      );
+      return null;
+    }
+  }
+
+  for (const { producto, cantidad } of pedido.items) {
+    const productoActual = buscarProductoPorId(producto.id);
+    productoActual.stock -= cantidad;
+  }
+
   pedido.estado = "pagado";
   pedido.total = calcularTotal(idPedido);
+  guardarProductos();
   guardarPedidos();
   return pedido;
 }

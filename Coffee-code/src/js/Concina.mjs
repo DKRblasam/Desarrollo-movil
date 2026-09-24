@@ -15,6 +15,7 @@ import {
   guardarProductos,
   cargarProductos,
   sembrarCatalogoInicial,
+  obtenerProductos,
   buscarProductosBaratos,
   buscarProductosCaros,
   obtenerBebidas,

@@ -14,6 +14,7 @@ import {
   cargarPedidos,
   crearPedido,
   agregarProductoAPedido,
+  calcularDesglose,
   calcularTotal,
 } from "./Pedidos.mjs";
 
@@ -144,6 +145,30 @@ function renderizarPedidoActual() {
   totalEl.textContent = `Total: $${calcularTotal(pedidoActual.id)} MXN`;
 }
 
+function renderizarPedidosRealizados() {
+  const contenedor = document.getElementById("pedidosRealizadosCliente");
+  if (!contenedor) return;
+
+  contenedor.innerHTML = "";
+
+  if (pedidos.length === 0) {
+    contenedor.innerHTML = "<p>Aún no hay pedidos realizados.</p>";
+    return;
+  }
+
+  pedidos.forEach((pedido) => {
+    const { total } = calcularDesglose(pedido.id);
+    const elemento = document.createElement("article");
+    elemento.className = "pedido-cliente-historial";
+    elemento.innerHTML = `
+      <strong>Pedido #${pedido.id}</strong>
+      <span>Estado: ${pedido.estado}</span>
+      <span>Total: $${total.toFixed(2)} MXN</span>
+    `;
+    contenedor.appendChild(elemento);
+  });
+}
+
 // =============== Eventos ===============
 
 function manejarClicCatalogo(evento) {
@@ -161,7 +186,16 @@ function manejarClicCatalogo(evento) {
     pedidoActual = crearPedido();
   }
 
-  agregarProductoAPedido(pedidoActual.id, producto, 1);
+  const pedidoActualizado = agregarProductoAPedido(
+    pedidoActual.id,
+    producto,
+    1,
+  );
+  if (!pedidoActualizado) {
+    alert(`No hay stock suficiente de ${producto.name}.`);
+    return;
+  }
+
   renderizarPedidoActual();
 }
 
@@ -178,6 +212,7 @@ function manejarConfirmarPedido() {
 
   pedidoActual = null;
   renderizarPedidoActual();
+  renderizarPedidosRealizados();
 }
 
 // Punto de entrada para la pantalla cliente.html
@@ -189,6 +224,7 @@ export function inicializarCliente() {
   renderizarCatalogo();
   renderizarPromociones();
   renderizarPedidoActual();
+  renderizarPedidosRealizados();
 
   const catalogo = document.getElementById("catalogoCliente");
   const botonConfirmar = document.getElementById("btnConfirmarPedido");

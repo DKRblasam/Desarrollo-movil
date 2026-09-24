@@ -3,20 +3,13 @@
 //   Caja: interfaz para revisar y cobrar pedidos
 // ===================================================
 
+import { cargarProductos, sembrarCatalogoInicial } from "../../Productos.mjs";
 import {
   cargarPedidos,
   listarPedidos,
+  calcularDesglose,
   cerrarPedido,
 } from "../Funcionalidad/Pedidos.mjs";
-
-const IVA = 0.16;
-
-function calcularSubtotal(pedido) {
-  return pedido.items.reduce((subtotal, item) => {
-    const { producto, cantidad } = item;
-    return subtotal + producto.price * cantidad;
-  }, 0);
-}
 
 function renderizarPedidos() {
   const contenedor = document.getElementById("listaPedidosCaja");
@@ -36,9 +29,7 @@ function renderizarPedidos() {
   }
 
   pedidos.forEach((pedido) => {
-    const subtotal = calcularSubtotal(pedido);
-    const iva = subtotal * IVA;
-    const total = subtotal + iva;
+    const { subtotal, iva, total } = calcularDesglose(pedido.id);
     totalGeneral += total;
 
     const bloque = document.createElement("div");
@@ -75,12 +66,19 @@ function manejarClicPedidos(evento) {
   const boton = evento.target.closest("button[data-accion='cobrar']");
   if (!boton) return;
 
-  cerrarPedido(Number(boton.dataset.id));
+  const pedido = cerrarPedido(Number(boton.dataset.id));
+  if (!pedido) {
+    alert("No hay stock suficiente para cobrar este pedido.");
+    return;
+  }
+
   renderizarPedidos();
 }
 
 // Punto de entrada para la pantalla caja.html
 export function inicializarCaja() {
+  cargarProductos();
+  sembrarCatalogoInicial();
   cargarPedidos();
   renderizarPedidos();
 

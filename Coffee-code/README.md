@@ -1,118 +1,119 @@
 # Starbucks Coffee Code
 
-Tienda web estática para consultar productos Starbucks, crear pedidos y administrarlos desde las pantallas de cliente, cocina y caja.
+Aplicación web de una tienda Starbucks para consultar productos, crear pedidos,
+administrar el catálogo y cobrar pedidos. La aplicación usa JavaScript modular,
+`localStorage` y un servidor HTTP local de Node.js para probar correctamente los
+módulos ES (`.mjs`).
 
 ## Funcionalidades
 
-- Navegación por categorías: bebidas calientes, bebidas frías, alimentos y souvenirs.
-- Consulta de detalle de cada producto.
-- Botón **Comprar** en las páginas de producto.
-- Carrito de pedido con cantidades y total.
-- Persistencia de productos y pedidos mediante `localStorage`.
-- Pantalla de cocina para agregar, editar y eliminar productos.
-- Pantalla de caja para consultar pedidos y marcarlos como pagados.
+- Menú principal con categorías de bebidas, alimentos y souvenirs.
+- Páginas de detalle con botón **Comprar**.
+- Pedido abierto compartido entre las páginas de productos y Cliente.
+- Menú dinámico con productos disponibles según stock.
+- Promociones del 15% para bebidas y productos dulces.
+- Cocina: agregar, editar, eliminar, buscar y filtrar productos.
+- Caja: subtotal, IVA, total y cambio de estado a pagado.
+- Persistencia en `localStorage`.
 
-## Flujo de compra
-
-1. Abrir `index.html`.
-2. Entrar en una categoría y seleccionar un producto.
-3. Pulsar **Comprar**.
-4. El producto se agrega al pedido abierto y se abre `cliente.html`.
-5. Desde **Mi Pedido** se pueden revisar los productos y confirmar el pedido.
-6. El pedido confirmado queda disponible en `caja.html`.
-
-Los botones de compra de las páginas de detalle y de souvenirs utilizan `comprar-producto.mjs`. El módulo identifica el producto por el título de la página, reutiliza el pedido abierto y guarda el cambio antes de redirigir al cliente.
-
-## Pantallas principales
-
-| Archivo              | Uso                         |
-| -------------------- | --------------------------- |
-| `index.html`         | Menú principal              |
-| `bebidas-cali.html`  | Lista de bebidas calientes  |
-| `bebidas-frias.html` | Lista de bebidas frías      |
-| `alimentos.html`     | Lista de alimentos          |
-| `tazas.html`         | Catálogo de tazas           |
-| `termos.html`        | Catálogo de termos          |
-| `vasos.html`         | Catálogo de vasos           |
-| `cliente.html`       | Pedido del cliente          |
-| `cocina.html`        | Administración del catálogo |
-| `caja.html`          | Consulta y cobro de pedidos |
-
-Las páginas individuales de producto son, entre otras, `espresso.html`, `latte.html`, `cappuccino.html`, `mango-ref.html`, `baguette.html` y `pastel.html`.
-
-## Estructura del proyecto
+## Estructura actual
 
 ```text
-Practica2/
-├── index.html
-├── index.mjs
-├── comprar-producto.mjs
-├── estilos.css
-├── tienda.css
-├── paginas de productos y categorías
-└── Codigo-Exteno/
-    ├── Ashley/
-    │   └── Caja.mjs
-    ├── David/
-    │   ├── Concina.mjs
-    │   └── Productos.mjs
-    └── Funcionalidad/
-        ├── Cliente.mjs
-        └── Pedidos.mjs
+Coffee-code/
+├── index.html                         # Menú principal
+├── package.json                       # Comandos del proyecto
+├── server.mjs                         # Servidor HTTP para pruebas
+├── pages/
+│   ├── alimentos/                     # Categoría y productos de alimentos
+│   ├── bebidas/                       # Categoría y productos de bebidas
+│   ├── pedidos/
+│   │   ├── cliente.html               # Pedido del cliente
+│   │   ├── cocina.html                # Administración del catálogo
+│   │   └── caja.html                  # Consulta y cobro de pedidos
+│   └── souvenirs/                     # Productos y categorías de souvenirs
+├── public/
+│   └── images/                        # Imágenes del catálogo y logotipo
+├── src/
+│   ├── css/
+│   │   ├── estilos.css                # Estilos generales
+│   │   └── tienda.css                 # Estilos de la tienda
+│   └── js/
+│       ├── index.mjs                  # Enrutador por data-page
+│       ├── Productos.mjs               # Catálogo y existencias
+│       ├── Concina.mjs                 # Lógica e interfaz de Cocina
+│       ├── comprar-producto.mjs        # Agrega productos al pedido
+│       └── Codigo-Exteno/
+│           ├── Funcionalidad/
+│           │   ├── Cliente.mjs         # Menú, promociones y pedido
+│           │   └── Pedidos.mjs         # Persistencia y operaciones
+│           └── Ashley/
+│               └── Caja.mjs            # Interfaz de Caja
+└── Codigo-Anterior/                   # Versiones anteriores y pruebas
 ```
 
-## Módulos
+`Codigo-Anterior/` se conserva como referencia histórica. La aplicación actual
+usa los archivos de `pages/`, `public/` y `src/`.
 
-### `index.mjs`
+## Módulos principales
 
-Es el punto de entrada de `cliente.html`, `cocina.html` y `caja.html`. Lee el atributo `data-page` del `body` y carga el módulo correspondiente.
+### Productos
 
-### `Codigo-Exteno/David/Productos.mjs`
+[`src/js/Productos.mjs`](src/js/Productos.mjs) define `Producto`, carga el
+catálogo inicial y ofrece búsquedas por nombre, precio, categoría y tipo.
 
-Define la clase `Producto`, el catálogo inicial, la búsqueda de productos y la persistencia de existencias.
+### Pedidos
 
-Clave utilizada en `localStorage`: `cafe_existencias`.
+[`src/js/Codigo-Exteno/Funcionalidad/Pedidos.mjs`](src/js/Codigo-Exteno/Funcionalidad/Pedidos.mjs)
+crea pedidos, agrega o elimina productos, calcula subtotal, IVA y total, y
+guarda los datos en el navegador.
 
-### `Codigo-Exteno/Funcionalidad/Pedidos.mjs`
+### Cliente
 
-Gestiona la creación de pedidos, la adición y eliminación de productos, el cálculo de totales y el cierre de pedidos.
+[`src/js/Codigo-Exteno/Funcionalidad/Cliente.mjs`](src/js/Codigo-Exteno/Funcionalidad/Cliente.mjs)
+renderiza el menú disponible, las promociones y el resumen del pedido.
 
-Claves utilizadas en `localStorage`:
+### Cocina
 
-- `cafe_pedidos`
-- `cafe_pedidos_contador`
+[`src/js/Concina.mjs`](src/js/Concina.mjs) administra productos y permite
+filtrar por productos baratos, caros, bebidas, postres o buscar por nombre.
 
-### `Codigo-Exteno/Funcionalidad/Cliente.mjs`
+### Caja
 
-Renderiza el catálogo disponible, recupera el pedido abierto, muestra su resumen y permite enviarlo a caja.
+[`src/js/Codigo-Exteno/Ashley/Caja.mjs`](src/js/Codigo-Exteno/Ashley/Caja.mjs)
+consulta pedidos abiertos, muestra el desglose y permite marcarlos como pagados.
 
-### `Codigo-Exteno/David/Concina.mjs`
+## Servidor local para pruebas
 
-Controla la pantalla de cocina: alta, edición, eliminación y listado de productos.
+No abras las páginas con doble clic (`file://`). Los módulos ES y la navegación
+entre páginas deben probarse mediante el servidor incluido.
 
-### `Codigo-Exteno/Ashley/Caja.mjs`
+### Requisitos
 
-Renderiza los pedidos guardados, calcula sus totales y permite marcar como pagados los pedidos abiertos.
+- Node.js 18 o superior.
+- Navegador moderno.
+- No se requieren dependencias externas ni `npm install`.
 
-## Ejecución
+### Iniciar el servidor
 
-El proyecto incluye un servidor local de Node.js y no requiere instalar dependencias externas. Desde esta carpeta, ejecuta:
+Desde la carpeta `Coffee-code`:
 
 ```bash
 npm start
 ```
 
-Después, abre en el navegador:
-
-```text
-http://localhost:8000/
-```
-
-También puedes cambiar el puerto con la variable `PORT`:
+También puedes iniciar directamente el archivo:
 
 ```bash
-set PORT=8080 && npm start
+node server.mjs
 ```
+
+El servidor mostrará la URL disponible, normalmente:
+
+```text
+Servidor activo en http://localhost:8000/
+```
+
+### Cambiar el puerto
 
 En PowerShell:
 
@@ -120,9 +121,68 @@ En PowerShell:
 $env:PORT=8080; npm start
 ```
 
-## Notas
+En CMD:
 
-- Los datos se guardan en el `localStorage` del navegador.
-- El catálogo inicial se crea automáticamente cuando todavía no existen productos guardados.
-- Los precios iniciales de bebidas y alimentos son valores definidos para la práctica; los souvenirs usan los precios mostrados en sus páginas.
-- Para reiniciar los datos de prueba, borrar las claves `cafe_existencias`, `cafe_pedidos` y `cafe_pedidos_contador` desde las herramientas de desarrollo del navegador.
+```bat
+set PORT=8080 && npm start
+```
+
+En Linux, macOS o WSL:
+
+```bash
+PORT=8080 npm start
+```
+
+Si el puerto 8000 está ocupado y no se estableció `PORT`, el servidor prueba
+automáticamente el siguiente puerto disponible.
+
+### Detener el servidor
+
+En la terminal donde está ejecutándose:
+
+```text
+Ctrl+C
+```
+
+### Rutas para probar
+
+Con el puerto predeterminado:
+
+| Pantalla       | URL                                                |
+| -------------- | -------------------------------------------------- |
+| Menú principal | `http://localhost:8000/`                           |
+| Cliente        | `http://localhost:8000/pages/pedidos/cliente.html` |
+| Cocina         | `http://localhost:8000/pages/pedidos/cocina.html`  |
+| Caja           | `http://localhost:8000/pages/pedidos/caja.html`    |
+
+## Pruebas manuales
+
+1. Abre Cliente y confirma que aparecen el catálogo y las promociones.
+2. Agrega un producto y verifica que se muestre en **Tu pedido**.
+3. Confirma el pedido y abre Caja en otra pestaña.
+4. Comprueba subtotal, IVA, total y estado `abierto`.
+5. Marca el pedido como pagado y verifica el estado `pagado`.
+6. Abre Cocina y prueba agregar, editar, eliminar, buscar y filtrar productos.
+7. Recarga el navegador y confirma que los datos permanecen guardados.
+
+## Persistencia y reinicio de pruebas
+
+Los datos se almacenan en el `localStorage` del navegador:
+
+- `cafe_existencias`: catálogo y stock.
+- `cafe_pedidos`: pedidos guardados.
+- `cafe_pedidos_contador`: siguiente identificador de pedido.
+
+Para comenzar una prueba limpia, abre las herramientas de desarrollo del
+navegador, entra en **Application/Almacenamiento > Local Storage**, selecciona
+`http://localhost:8000` y elimina esas tres claves. Después recarga la página.
+
+## Diagnóstico rápido
+
+- **La página aparece vacía:** confirma que el servidor sigue activo y que la
+  URL empieza por `http://localhost`.
+- **No cargan los módulos:** no abras el HTML con `file://`; usa `npm start`.
+- **El puerto está ocupado:** usa `PORT=8080 npm start` o el equivalente de tu
+  terminal.
+- **Aparecen datos viejos:** limpia las claves del `localStorage` indicadas
+  arriba.

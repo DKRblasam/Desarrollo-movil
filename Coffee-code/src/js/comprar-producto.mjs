@@ -29,7 +29,12 @@ function agregarAlPedido(boton) {
   let pedido = pedidos.find((item) => item.estado === "abierto");
   if (!pedido) pedido = crearPedido();
 
-  agregarProductoAPedido(pedido.id, producto, 1);
+  const pedidoActualizado = agregarProductoAPedido(pedido.id, producto, 1);
+  if (!pedidoActualizado) {
+    alert(`No hay stock suficiente de ${producto.name}.`);
+    return;
+  }
+
   window.location.href = "../../pages/pedidos/cliente.html";
 }
 
