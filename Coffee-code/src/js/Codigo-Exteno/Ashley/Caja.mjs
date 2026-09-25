@@ -170,9 +170,9 @@ function actualizarPedido(evento, notificarCliente) {
     }
 
 
-    // Cerramos el pedido
+    // Cerramos el pedido y guardamos su nuevo estado
 
-    cerrarPedido(id);
+    cerrarPedido(id, nuevoEstado);
 
 
     // ==========================================
@@ -217,16 +217,3 @@ export function iniciarCaja(notificarCliente) {
 
     }
 }
-
-
-// ==========================================
-// CALLBACK DE PRUEBA
-// ==========================================
-
-iniciarCaja(function(id, estado) {
-
-    console.log(
-        `El pedido #${id} ahora está ${estado}`
-    );
-
-});
