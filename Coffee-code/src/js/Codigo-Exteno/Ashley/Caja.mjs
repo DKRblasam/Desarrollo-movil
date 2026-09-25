@@ -10,7 +10,10 @@ import {
 } from "../Funcionalidad/Pedidos.mjs";
 
 
+// ==========================================
 // Calcula el subtotal de un pedido
+// ==========================================
+
 function calcularSubtotal(pedido) {
 
     const subtotal = pedido.items.reduce((total, item) => {
@@ -25,7 +28,10 @@ function calcularSubtotal(pedido) {
 }
 
 
+// ==========================================
 // Muestra los pedidos en la pantalla
+// ==========================================
+
 function mostrarPedidos() {
 
     const lista = document.getElementById("listaPedidosCaja");
@@ -40,12 +46,16 @@ function mostrarPedidos() {
     if (pedidos.length === 0) {
 
         lista.innerHTML = "<p>No hay pedidos registrados todavía.</p>";
+
         totalGeneral.textContent = "Total acumulado: $0 MXN";
 
         return;
     }
 
     let totalAcumulado = 0;
+
+
+    // Recorremos todos los pedidos
 
     pedidos.forEach((pedido) => {
 
@@ -62,6 +72,7 @@ function mostrarPedidos() {
 
 
         // Obtenemos los productos del pedido
+
         const productos = pedido.items.map((item) => {
 
             const { producto, cantidad } = item;
@@ -72,6 +83,7 @@ function mostrarPedidos() {
 
 
         // Creamos la información del pedido
+
         const pedidoDiv = document.createElement("div");
 
         pedidoDiv.className = "pedido-caja";
@@ -111,28 +123,39 @@ function mostrarPedidos() {
         `;
 
         lista.appendChild(pedidoDiv);
+
     });
 
+
+    // Mostramos el total acumulado
 
     totalGeneral.textContent =
         `Total acumulado: $${totalAcumulado.toFixed(2)} MXN`;
 }
 
 
+// ==========================================
 // Detecta cuando se presiona un botón
+// ==========================================
+
 function actualizarPedido(evento, notificarCliente) {
 
     const boton = evento.target.closest("button");
 
     if (!boton) return;
 
+
+    // Obtenemos el ID y la acción del botón
+
     const id = Number(boton.dataset.id);
+
     const accion = boton.dataset.accion;
 
     let nuevoEstado;
 
 
-    // Cambiamos el estado dependiendo del botón
+    // Determinamos el nuevo estado
+
     if (accion === "listo") {
 
         nuevoEstado = "listo";
@@ -148,28 +171,41 @@ function actualizarPedido(evento, notificarCliente) {
 
 
     // Cerramos el pedido
+
     cerrarPedido(id);
 
 
-    // Notificamos al Cliente usando el callback
+    // ==========================================
+    // CALLBACK
+    // Notificamos al Cliente
+    // ==========================================
+
     if (notificarCliente) {
+
         notificarCliente(id, nuevoEstado);
+
     }
 
 
     // Actualizamos la pantalla
+
     mostrarPedidos();
 }
 
 
+// ==========================================
 // Inicia la pantalla de Caja
+// ==========================================
+
 export function iniciarCaja(notificarCliente) {
 
     cargarPedidos();
 
     mostrarPedidos();
 
+
     const lista = document.getElementById("listaPedidosCaja");
+
 
     if (lista) {
 
@@ -183,6 +219,9 @@ export function iniciarCaja(notificarCliente) {
 }
 
 
+// ==========================================
+// CALLBACK DE PRUEBA
+// ==========================================
 
 iniciarCaja(function(id, estado) {
 
@@ -191,8 +230,3 @@ iniciarCaja(function(id, estado) {
     );
 
 });
-
-
-notificarCliente(id, "listo");
-
-notificarCliente(id, "cancelado");

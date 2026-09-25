@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -9,15 +10,8 @@
 <body>
 
     <h1>Starbucks</h1>
-    <h2>Pedidos del cliente</h2>
 
-    <hr>
-
-    <h3>Productos disponibles</h3>
-
-    <p>Matcha Latte Helado - $100</p>
-    <p>Caramel Frappuccino - $95</p>
-    <p>Cheesecake de Fresa - $85</p>
+    <h2>Pedidos</h2>
 
     <hr>
 
@@ -31,10 +25,25 @@
         Total acumulado: $0 MXN
     </h3>
 
+
     <script type="module">
+
         import { iniciarCaja } from "./Caja.mjs";
 
-        iniciarCaja();
+
+        // Callback para notificar al cliente
+        function notificarCliente(id, estado) {
+
+            console.log(
+                `El pedido #${id} ahora está ${estado}`
+            );
+
+        }
+
+
+        // Iniciamos Caja pasando el callback
+        iniciarCaja(notificarCliente);
+
     </script>
 
 </body>
