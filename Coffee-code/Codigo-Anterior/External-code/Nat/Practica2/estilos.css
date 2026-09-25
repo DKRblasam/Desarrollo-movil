@@ -188,3 +188,84 @@ ul li a:hover {
 .btn-volver:hover {
     background-color: #d0d0d0;
 }
+
+/* PROMOCIONES*/
+.seccion-promociones {
+    background-color: #e8f5e9;
+    border: 1px dashed #006241;
+}
+
+.promo-item {
+    background-color: #ffffff;
+    border-left: 4px solid #006241;
+    padding: 10px 15px;
+    margin-top: 10px;
+    border-radius: 0 6px 6px 0;
+    font-size: 0.95rem;
+}
+
+.precio-antes {
+    text-decoration: line-through;
+    color: #888;
+    font-size: 0.85rem;
+    margin-right: 8px;
+}
+
+.precio-ahora {
+    color: #d32f2f;
+    font-size: 1rem;
+}
+
+/*total*/
+
+.desglose-precio strong {
+    font-size: 1.2rem;
+    color: #006241;
+}
+
+/* ESTADOS DEL PEDIDO*/
+.notificacion-estado {
+    margin-top: 15px;
+    padding: 12px 15px;
+    border-radius: 6px;
+    background-color: #e3f2fd;
+    border: 1px solid #90caf9;
+    color: #0d47a1;
+    transition: all 0.3s ease;
+}
+
+.notificacion-estado h4 {
+    margin: 0 0 5px 0;
+    font-size: 0.9rem;
+    color: #1565c0;
+}
+
+.notificacion-estado p {
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+.estado-recibido {
+    background-color: #e3f2fd;
+    border-color: #90caf9;
+    color: #0d47a1;
+}
+
+.estado-preparando {
+    background-color: #fff8e1;
+    border-color: #ffe082;
+    color: #f57f17;
+}
+
+.estado-empacando {
+    background-color: #f3e5f5;
+    border-color: #ce93d8;
+    color: #4a148c;
+}
+
+.estado-entregado {
+    background-color: #e8f5e9;
+    border-color: #a5d6a7;
+    color: #1b5e20;
+}
+
