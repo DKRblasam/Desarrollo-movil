@@ -312,22 +312,42 @@ export function sembrarCatalogoInicial() {
 
 // =============== Búsqueda de productos ===============
 
-// Buscar un producto por nombre
+
+//Obtener todos los productos de todas las categorias
+
+export function obtenerProductos() {
+  return existencias.flatMap((cat) => cat.prods);
+}
+
+// Buscar un producto especifico por nombre
 export function buscarProducto(name) {
-  if (!name) {
-    console.log("El nombre del producto no puede estar vacío.");
-    return null;
+  if (!name) return null;
+    const todos = obtenerProductos();
+    return todos.find((p) => p.name.toLowerCase().includes(name.toLowerCase())) || null;
   }
 
-  for (const categoria of existencias) {
-    const producto = categoria.prods.find((prod) => prod.name === name);
+//Buscar productos baratos (con precio menor o igual a $60)
+export function buscarProductosBaratos(umbralPrecio = 60){
+  const todos =  obtenerProductos();
+  return todos.filter((producto) => producto.price <= umbralPrecio);
+}
 
-    if (producto) {
-      return producto;
-    }
-  }
+//Buscar productos caros (con precio mayor o igual a $300)
+export function buscarProductosCaros(umbralPrecio = 300){
+  const todos =  obtenerProductos();
+  return todos.filter((producto) => producto.price >= umbralPrecio);
+}
 
-  return null;
+//Filtrar bebidas por categoria
+export function obtenerBebidas(){
+  const todos =  obtenerProductos();
+  return todos.filter((producto) => producto.category === "Bebidas");
+}
+
+//Buscar postres
+export function obtenerPostres(){
+  const todos =  obtenerProductos();
+  return todos.filter((producto) => producto.tipo.toLowerCase() === "dulce");
 }
 
 // Buscar un producto por id
@@ -339,15 +359,9 @@ export function buscarProductoPorId(id) {
   return null;
 }
 
-// Obtener todos los productos de todas las categorías
-export function obtenerProductos() {
-  return existencias.flatMap((cat) => cat.prods);
-}
-
 // Obtener todos los productos de una categoría
 export function productosCategoria(category) {
   const categoria = existencias.find((cat) => cat.category === category);
-
   return categoria ? categoria.prods : [];
 }
 
