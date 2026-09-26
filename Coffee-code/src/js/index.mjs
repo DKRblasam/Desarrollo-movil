@@ -24,9 +24,14 @@ async function iniciar() {
       break;
     }
     case "caja": {
-      const { inicializarCaja } =
+      const { iniciarCaja } =
         await import("./Codigo-Exteno/Ashley/Caja.mjs");
-      inicializarCaja();
+
+      function notificarCliente(id, estado) {
+        console.log(`El pedido #${id} ahora está ${estado}`);
+      }
+
+      iniciarCaja(notificarCliente);
       break;
     }
     default:

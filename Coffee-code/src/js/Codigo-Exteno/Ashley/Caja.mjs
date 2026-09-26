@@ -72,15 +72,39 @@ function manejarClicPedidos(evento) {
     return;
   }
 
-  renderizarPedidos();
+
+    // Cerramos el pedido y guardamos su nuevo estado
+
+    cerrarPedido(id, nuevoEstado);
+
+
+    // ==========================================
+    // CALLBACK
+    // Notificamos al Cliente
+    // ==========================================
+
+    if (notificarCliente) {
+
+        notificarCliente(id, nuevoEstado);
+
+    }
+
+
+    // Actualizamos la pantalla
+
+    mostrarPedidos();
 }
 
-// Punto de entrada para la pantalla caja.html
-export function inicializarCaja() {
-  cargarProductos();
-  sembrarCatalogoInicial();
-  cargarPedidos();
-  renderizarPedidos();
+
+// ==========================================
+// Inicia la pantalla de Caja
+// ==========================================
+
+export function iniciarCaja(notificarCliente) {
+
+    cargarPedidos();
+
+    mostrarPedidos();
 
   const contenedor = document.getElementById("listaPedidosCaja");
   if (contenedor) contenedor.addEventListener("click", manejarClicPedidos);

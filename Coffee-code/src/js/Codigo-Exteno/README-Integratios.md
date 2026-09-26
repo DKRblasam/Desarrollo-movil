@@ -68,12 +68,14 @@ inicializarCocina();
 
 ### Caja: `Ashley/Caja.mjs`
 
-Inicializa `caja.html`, muestra los pedidos registrados y permite marcar como pagados los pedidos que siguen abiertos.
+Inicializa `caja.html`, muestra los pedidos registrados y permite marcar como listos o cancelados los pedidos que siguen abiertos. Al cambiar el estado, ejecuta el callback para notificar al cliente.
 
 La función pública de entrada es:
 
 ```javascript
-inicializarCaja();
+iniciarCaja((id, estado) => {
+    console.log(`El pedido #${id} ahora está ${estado}`);
+});
 ```
 
 ## Punto de entrada
