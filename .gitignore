@@ -1,0 +1,46 @@
+# Dependencies
+node_modules/
+
+# Expo
+.expo/
+.eas/
+dist/
+web-build/
+expo-env.d.ts
+
+# Native build artifacts and credentials
+.kotlin/
+*.orig.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+# Metro
+.metro-health-check*
+
+# Debug logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# macOS
+.DS_Store
+*.pem
+
+# Local environment files
+.env*
+!.env.example
+!.env.*.example
+
+# TypeScript and tool caches
+*.tsbuildinfo
+coverage/
+.cache/
+
+# Expo prebuild output for app2_57 (Continuous Native Generation)
+/Apps-Moviles/app2_57/ios/
+/Apps-Moviles/app2_57/android/
