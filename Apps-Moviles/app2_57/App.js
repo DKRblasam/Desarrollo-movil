@@ -2,26 +2,19 @@
 //                Zona de importaciones
 // ===================================================
 
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 
 // ============= Componentes =============
-
-// ------------- Saludos -------------
-
-import { Hi_htler } from "./Components/Saludos/Hi";
-import { Hi_frer } from "./Components/Saludos/Hi2";
-
-// ------------- Perfiles -------------
-
-import { Me_prfle, Me_perfil } from "./Components/perfiles/Profile";
 
 // ------------- Separadores -------------
 
 import { __ } from "./Components/Elements/seprator";
 
+// ============= Pantallas =============
 
-// -------------  -------------
+// ------------- Pantalla de menu -------------
+
+import MenuScreen from "./Screens/Menus/menu";
 
 // ===================================================
 //                   Zona del MAIN
@@ -30,30 +23,7 @@ import { __ } from "./Components/Elements/seprator";
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Hola mundo en React Native por Davo</Text>
-
-      <Image source={require("./assets/wave.png")} />
-
-      <__ />
-
-      <Hi_htler> </Hi_htler>
-      <__ />
-      <Hi_frer />
-
-      <__ />
-
-      <Me_prfle />
-
-      <__ />
-
-      <Me_perfil
-        name="Blas Amador Ian David"
-        carrer="ITIID 223"
-        mat="Desarrollo de Aplicaciones web"
-        cuatri="4to cuatrimestre"
-      />
-
-      <StatusBar style="auto" />
+      <MenuScreen />
     </View>
   );
 }
@@ -65,8 +35,15 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
+    flexDirection: "col",
     justifyContent: "center",
+    alignItems: "center",
+
+    backgroundColor: "#cccccc",
+
+    paddingTop: 20,
+    paddingBottom: 20,
+    paddingLeft: 30,
+    paddingRight: 30,
   },
 });

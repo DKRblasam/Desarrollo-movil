@@ -10,9 +10,7 @@ import { View, Text, Image, Button } from "react-native";
 export const __ = () => {
   return (
     <View>
-      <Text></Text>
-      <Text>________________________________</Text>
-      <Text></Text>
+      <Text> </Text>
     </View>
   );
 };
