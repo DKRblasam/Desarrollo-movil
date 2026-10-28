@@ -6,21 +6,26 @@
 
 // ------------- React -------------
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 // ============= Componentes =============
 
 // ------------- Nativos -------------
 
-import { StyleSheet, View, Text, ScrollView, Pressable } from "react-native";
+import {
+  StyleSheet,
+  View,
+  ScrollView,
+  Pressable,
+  Text,
+  Animated,
+  BackHandler,
+} from "react-native";
 
+import { SafeAreaView } from "react-native-safe-area-context";
 // ------------- Expo -------------
 
 import { StatusBar } from "expo-status-bar";
-
-// ------------- Separadores -------------
-
-import { __ } from "../../Components/Elements/seprator";
 
 // ------------- Estilos -------------
 
@@ -28,348 +33,342 @@ import { gl_styles } from "../../styles/global";
 
 // ============= Pantallas =============
 
-import { CardScreen } from "../Presentations/cardScreen";
-import { SafeScreen } from "../Presentations/safeScreen";
-import { SwitchScreen } from "../Presentations/switchScreen";
-import { TextInputScreen } from '../Presentations/textInputScreen';
-import { FlatSectionScreen } from '../Presentations/flatSectionScreen';
-import { FlatSectionScreen2 } from '../Presentations/flatSectionScreen2';
-import { ImageSplashScreen } from "../Presentations/imageSplashScreen";
-import { ModalBottomSheetScreen } from "../Presentations/modalBottomSheetScreen";
+import CardScreen from "../Presentations/cardScreen";
+import SafeScreen  from "../Presentations/safeScreen";
+import SwitchScreen from "../Presentations/switchScreen";
+import TextInputScreen from "../Presentations/textInputScreen";
+// FIX: antes se importaba desde textInputScreen (archivo equivocado)
+import ScreenFlat from "../Presentations/flatSectionScreen";
+import FlatSectionScreen2 from "../Presentations/flatSectionScreen2";
+import ImageSplashScreen from "../Presentations/imageSplashScreen";
+import ModalBottomSheetScreen from "../Presentations/modalBottomSheetScreen";
+
+// ===================================================
+//                 Datos del menú
+// ===================================================
+// Una sola fuente de verdad: agregar una práctica = agregar un objeto.
+
+const PRACTICAS = [
+  {
+    key: "cards",
+    emoji: "🃏",
+    title: "Tarjetas",
+    color: "#7C3AED",
+    author: "Practica de Tarjetas",
+    Screen: CardScreen,
+  },
+  {
+    key: "safe",
+    emoji: "📱",
+    title: "SafeAreaView & ScrollView",
+    color: "#2563EB",
+    author: "Dulce Ayelen Perez Toribio",
+    Screen: SafeScreen,
+  },
+  {
+    key: "press",
+    emoji: "👆",
+    title: "Pressable & Switch",
+    color: "#059669",
+    author: "Karen Hernández Sánchez",
+    Screen: SwitchScreen,
+  },
+  {
+    key: "input",
+    emoji: "⌨️",
+    title: "TextInput & Alert",
+    color: "#EA580C",
+    author: "Jesus Rojo Uribe",
+    Screen: TextInputScreen,
+  },
+  {
+    key: "lists",
+    emoji: "📋",
+    title: "FlatList & SectionList",
+    color: "#DB2777",
+    author: "Natalia Zarate Cabanillas",
+    Screen: ScreenFlat,
+  },
+  {
+    key: "lists2",
+    emoji: "🗂️",
+    title: "FlatList & SectionList (2)",
+    color: "#9333EA",
+    author: "Natalia Zarate Cabanillas",
+    Screen: FlatSectionScreen2,
+  },
+  {
+    key: "image",
+    emoji: "🌄",
+    title: "ImageBackground & SplashScreen",
+    color: "#0891B2",
+    author: "Paloma Valeria Hurtado Guerrero",
+    Screen: ImageSplashScreen,
+  },
+  {
+    key: "modal",
+    emoji: "🪟",
+    title: "Modal & Bottom Sheet",
+    color: "#C2410C",
+    author: "Iancarlo Abreu Martinez",
+    Screen: ModalBottomSheetScreen,
+  },
+];
+
+// ===================================================
+//              Componentes auxiliares
+// ===================================================
+
+// Botón de práctica: reemplaza a <Button> (que no permite estilos reales
+// y usa `onPress`, no `onclick`).
+function PracticaButton({ item, onPress }) {
+  return (
+    <Pressable
+      onPress={onPress}
+      android_ripple={{ color: "rgba(255,255,255,0.25)" }}
+      style={({ pressed }) => [
+        styles.card,
+        { backgroundColor: item.color },
+        pressed && styles.cardPressed,
+      ]}
+    >
+      <Text style={styles.cardEmoji}>{item.emoji}</Text>
+
+      <View style={styles.cardTexts}>
+        <Text style={styles.cardTitle}>{item.title}</Text>
+        <Text style={styles.cardAuthor}>{item.author}</Text>
+      </View>
+
+      <Text style={styles.cardArrow}>›</Text>
+    </Pressable>
+  );
+}
+
+// Botón "Volver" que se muestra encima de cualquier práctica.
+function BackBar({ onBack, title, color }) {
+  return (
+    <View style={[styles.backBar, { backgroundColor: color }]}>
+      <Pressable onPress={onBack} hitSlop={12} style={styles.backBtn}>
+        <Text style={styles.backText}>‹ Menú</Text>
+      </Pressable>
+      <Text style={styles.backTitle} numberOfLines={1}>
+        {title}
+      </Text>
+    </View>
+  );
+}
 
 // ===================================================
 //                   Zona del MAIN
 // ===================================================
 
-const PRACTICES = [
-  {
-    id: "cards",
-    icon: "🃏",
-    title: "Tarjetas",
-    subtitle: "Componentes y diseño",
-    color: "#7C3AED",
-    author: "Práctica general",
-  },
-  {
-    id: "safe",
-    icon: "📱",
-    title: "SafeAreaView & ScrollView",
-    subtitle: "Áreas seguras y desplazamiento",
-    color: "#2563EB",
-    author: "Dulce Ayelen Perez Toribio",
-  },
-  {
-    id: "press",
-    icon: "👆",
-    title: "Pressable & Switch",
-    subtitle: "Interacciones y controles",
-    color: "#059669",
-    author: "Karen Hernández Sánchez",
-  },
-  {
-    id: "input",
-    icon: "⌨️",
-    title: "TextInput & Alert",
-    subtitle: "Entradas de texto y alertas",
-    color: "#EA580C",
-    author: "Jesus Rojo Uribe",
-  },
-  {
-    id: "lists",
-    icon: "📋",
-    title: "FlatList & SectionList",
-    subtitle: "Listas dinámicas · Exposición 1",
-    color: "#DB2777",
-    author: "Natalia Zarate Cabanillas",
-  },
-  {
-    id: "lists2",
-    icon: "🗂️",
-    title: "FlatList & SectionList",
-    subtitle: "Listas dinámicas · Exposición 2",
-    color: "#9333EA",
-    author: "Natalia Zarate Cabanillas",
-  },
-  {
-    id: "image",
-    icon: "🌄",
-    title: "ImageBackground & SplashScreen",
-    subtitle: "Fondos e inicio de la aplicación",
-    color: "#0891B2",
-    author: "Paloma Valeria Hurtado Guerrero",
-  },
-  {
-    id: "modal",
-    icon: "🪟",
-    title: "Modal & Bottom Sheet",
-    subtitle: "Ventanas emergentes y paneles",
-    color: "#C2410C",
-    author: "Iancarlo Abreu Martinez",
-  },
-];
-
 export default function MenuScreen() {
   const [screen, setScreen] = useState("menu");
 
-  // Redirecciones a cada práctica
-  switch (screen) {
-    case "cards":
-      return <CardScreen />;
+  // Animación de entrada del encabezado (una sola vez)
+  const headerAnim = useRef(new Animated.Value(0)).current;
+  useEffect(() => {
+    Animated.timing(headerAnim, {
+      toValue: 1,
+      duration: 600,
+      useNativeDriver: true,
+    }).start();
+  }, [headerAnim]);
 
-    case "safe":
-      return <SafeScreen />;
+  // El botón "atrás" de Android regresa al menú en vez de cerrar la app
+  useEffect(() => {
+    const sub = BackHandler.addEventListener("hardwareBackPress", () => {
+      if (screen !== "menu") {
+        setScreen("menu");
+        return true;
+      }
+      return false;
+    });
+    return () => sub.remove();
+  }, [screen]);
 
-    case "press":
-      return <SwitchScreen />;
+  // ------------- Vista de una práctica -------------
+  const activa = PRACTICAS.find((p) => p.key === screen);
 
-    case "input":
-      return <TextInputScreen />;
-
-    case "lists":
-      return <FlatSectionScreen />;
-
-    case "lists2":
-      return <FlatSectionScreen2 />;
-
-    case "image":
-      return <ImageSplashScreen />;
-
-    case "modal":
-      return <ModalBottomSheetScreen />;
-
-    case "menu":
-    default:
-      return (
-        <View style={styles.container}>
-          <StatusBar style="light" />
-
-          <View style={styles.header}>
-            <Text style={styles.eyebrow}>REACT NATIVE · PRÁCTICAS</Text>
-
-            <Text style={styles.title}>
-              ¡Explora el{"\n"}
-              <Text style={styles.titleAccent}>menú!</Text>
-            </Text>
-
-            <Text style={styles.description}>
-              Selecciona un tema para conocer sus componentes y ver las
-              prácticas de cada expositor.
-            </Text>
-
-            <View style={styles.counter}>
-              <Text style={styles.counterText}>✨ 8 prácticas disponibles</Text>
-            </View>
-          </View>
-
-          <ScrollView
-            style={styles.scroll}
-            contentContainerStyle={styles.list}
-            showsVerticalScrollIndicator={false}
-          >
-            {PRACTICES.map((item, index) => (
-              <Pressable
-                key={item.id}
-                onPress={() => setScreen(item.id)}
-                style={({ pressed }) => [
-                  styles.card,
-                  pressed && styles.cardPressed,
-                ]}
-                accessibilityRole="button"
-                accessibilityLabel={`Abrir ${item.title}`}
-              >
-                <View
-                  style={[
-                    styles.iconContainer,
-                    { backgroundColor: item.color },
-                  ]}
-                >
-                  <Text style={styles.icon}>{item.icon}</Text>
-                </View>
-
-                <View style={styles.cardContent}>
-                  <Text style={styles.cardNumber}>
-                    PRÁCTICA {(index + 1).toString().padStart(2, "0")}
-                  </Text>
-
-                  <Text style={styles.cardTitle}>{item.title}</Text>
-
-                  <Text style={styles.cardSubtitle}>{item.subtitle}</Text>
-
-                  <Text style={styles.author}>👤 {item.author}</Text>
-                </View>
-
-                <View style={[styles.arrow, { backgroundColor: item.color }]}>
-                  <Text style={styles.arrowText}>›</Text>
-                </View>
-              </Pressable>
-            ))}
-
-            <Text style={styles.footer}>Hecho con 💜 y React Native</Text>
-          </ScrollView>
+  if (activa) {
+    const { Screen } = activa;
+    return (
+      <View style={styles.flex}>
+        {/* <StatusBar style="light" /> */}
+        <BackBar
+          onBack={() => setScreen("menu")}
+          title={`${activa.emoji} ${activa.title}`}
+          color={activa.color}
+        />
+        <View style={styles.flex}>
+          <Screen />
         </View>
-      );
+      </View>
+    );
   }
+
+  // ------------- Vista del menú -------------
+  return (
+    <SafeAreaView style={styles.container}>
+      {/* <StatusBar style="dark" /> */}
+
+      <ScrollView
+        contentContainerStyle={styles.scroll}
+        showsVerticalScrollIndicator={false}
+      >
+        <Animated.View
+          style={{
+            opacity: headerAnim,
+            transform: [
+              {
+                translateY: headerAnim.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [-16, 0],
+                }),
+              },
+            ],
+          }}
+        >
+          <Text style={[gl_styles.title_menu, styles.title]}>
+            ¡Explora el menú!
+          </Text>
+          <Text style={styles.subtitle}>
+            Selecciona una práctica para comenzar 🚀
+          </Text>
+        </Animated.View>
+
+        {PRACTICAS.map((item) => (
+          <PracticaButton
+            key={item.key}
+            item={item}
+            onPress={() => setScreen(item.key)}
+          />
+        ))}
+
+        <Text style={styles.footer}>{PRACTICAS.length} prácticas disponibles</Text>
+      </ScrollView>
+    </SafeAreaView>
+  );
 }
 
+// ===================================================
+//                   Zona de estilos
+// ===================================================
+
 const styles = StyleSheet.create({
+  flex: {
+    flex: 1,
+  },
+
   container: {
     flex: 1,
-    backgroundColor: "#0B1020",
-    paddingTop: 48,
-  },
-
-  header: {
-    paddingHorizontal: 24,
-    paddingBottom: 20,
-  },
-
-  eyebrow: {
-    color: "#A5B4FC",
-    fontSize: 11,
-    fontWeight: "800",
-    letterSpacing: 2,
-    marginBottom: 12,
-  },
-
-  title: {
-    color: "#FFFFFF",
-    fontSize: 38,
-    fontWeight: "900",
-    lineHeight: 43,
-  },
-
-  titleAccent: {
-    color: "#A78BFA",
-  },
-
-  description: {
-    color: "#A7B0C5",
-    fontSize: 14,
-    lineHeight: 21,
-    marginTop: 12,
-    maxWidth: 330,
-  },
-
-  counter: {
-    alignSelf: "flex-start",
-    marginTop: 17,
-    paddingVertical: 8,
-    paddingHorizontal: 13,
-    borderRadius: 20,
-    backgroundColor: "#1C2440",
-    borderWidth: 1,
-    borderColor: "#343D60",
-  },
-
-  counterText: {
-    color: "#DDD6FE",
-    fontSize: 12,
-    fontWeight: "700",
+    backgroundColor: "#F3F4F6",
+    paddingTop: 50,
   },
 
   scroll: {
-    flex: 1,
+    paddingHorizontal: 20,
+    paddingBottom: 40,
   },
 
-  list: {
-    paddingHorizontal: 18,
-    paddingTop: 5,
-    paddingBottom: 28,
-    gap: 12,
+  title: {
+    fontSize: 28,
+    fontWeight: "800",
+    color: "#111827",
+    textAlign: "center",
+    marginTop: 10,
   },
 
+  subtitle: {
+    fontSize: 15,
+    color: "#6B7280",
+    textAlign: "center",
+    marginTop: 6,
+    marginBottom: 24,
+  },
+
+  // --- Tarjeta/botón ---
   card: {
-    flexDirection: "row",
+    flexDirection: "row", // FIX: "col" no es un valor válido
     alignItems: "center",
-    backgroundColor: "#151C30",
-    borderRadius: 20,
-    borderWidth: 1,
-    borderColor: "#29324B",
-    padding: 14,
-    minHeight: 112,
+    borderRadius: 16,
+    paddingVertical: 16,
+    paddingHorizontal: 16,
+    marginBottom: 14,
+    overflow: "hidden",
 
-    shadowColor: "#000000",
-    shadowOffset: { width: 0, height: 5 },
-    shadowOpacity: 0.2,
+    // sombra iOS
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.18,
     shadowRadius: 8,
-    elevation: 4,
+    // sombra Android
+    elevation: 5,
   },
 
   cardPressed: {
-    opacity: 0.78,
+    opacity: 0.85,
     transform: [{ scale: 0.97 }],
-    borderColor: "#A78BFA",
   },
 
-  iconContainer: {
-    width: 52,
-    height: 52,
-    borderRadius: 16,
-    alignItems: "center",
-    justifyContent: "center",
-    marginRight: 13,
+  cardEmoji: {
+    fontSize: 30,
+    marginRight: 14,
   },
 
-  icon: {
-    fontSize: 25,
-  },
-
-  cardContent: {
+  cardTexts: {
     flex: 1,
-    paddingVertical: 2,
-  },
-
-  cardNumber: {
-    color: "#8B98B5",
-    fontSize: 9,
-    fontWeight: "800",
-    letterSpacing: 1.3,
-    marginBottom: 5,
   },
 
   cardTitle: {
-    color: "#F8FAFC",
-    fontSize: 14,
-    fontWeight: "800",
-    lineHeight: 19,
-  },
-
-  cardSubtitle: {
-    color: "#A7B0C5",
-    fontSize: 11,
-    marginTop: 4,
-    lineHeight: 15,
-  },
-
-  author: {
-    color: "#C4B5FD",
-    fontSize: 10,
-    fontWeight: "600",
-    marginTop: 8,
-    lineHeight: 15,
-  },
-
-  arrow: {
-    width: 28,
-    height: 28,
-    borderRadius: 10,
-    alignItems: "center",
-    justifyContent: "center",
-    marginLeft: 7,
-  },
-
-  arrowText: {
+    fontSize: 17,
+    fontWeight: "700",
     color: "#FFFFFF",
-    fontSize: 25,
-    lineHeight: 27,
-    fontWeight: "500",
+  },
+
+  cardAuthor: {
+    fontSize: 12,
+    color: "rgba(255,255,255,0.8)",
+    marginTop: 2,
+  },
+
+  cardArrow: {
+    fontSize: 30,
+    color: "rgba(255,255,255,0.9)",
+    marginLeft: 8,
   },
 
   footer: {
     textAlign: "center",
-    color: "#78839F",
-    fontSize: 11,
-    marginTop: 12,
-    marginBottom: 10,
+    color: "#9CA3AF",
+    fontSize: 12,
+    marginTop: 10,
+  },
+
+  // --- Barra de regreso ---
+  backBar: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingTop: 50,
+    paddingBottom: 12,
+    paddingHorizontal: 16,
+  },
+
+  backBtn: {
+    paddingRight: 14,
+  },
+
+  backText: {
+    color: "#FFFFFF",
+    fontSize: 17,
+    fontWeight: "700",
+  },
+
+  backTitle: {
+    flex: 1,
+    color: "#FFFFFF",
+    fontSize: 16,
+    fontWeight: "600",
+    textAlign: "right",
   },
 });

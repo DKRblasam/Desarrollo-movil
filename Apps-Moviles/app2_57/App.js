@@ -14,17 +14,20 @@ import { __ } from "./Components/Elements/seprator";
 
 // ------------- Pantalla de menu -------------
 
-import MenuScreen from "./Screens/Menus/menu";
+// import MenuScreen from "./Screens/Menus/menupro";
+// import ScreenFlat from "./Screens/Presentations/flatSectionScreen";
+import MenuScreen from "./Screens/Menus/menupro";
 
 // ===================================================
 //                   Zona del MAIN
 // ===================================================
 
+import { SafeAreaProvider } from "react-native-safe-area-context";
 export default function App() {
   return (
-    <View style={styles.container}>
+    <SafeAreaProvider>
       <MenuScreen />
-    </View>
+    </SafeAreaProvider>
   );
 }
 

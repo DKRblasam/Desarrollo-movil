@@ -2,7 +2,7 @@
 //                Zona de importaciones
 // ===================================================
 
-import { StatusBar } from "expo-status-bar";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { StyleSheet, View, Text } from "react-native";
 
 // ============= Componentes =============
@@ -11,9 +11,13 @@ import { StyleSheet, View, Text } from "react-native";
 
 import { __ } from "../../Components/Elements/seprator";
 
-// -------------  -------------
+// ============= Componentes - Practica =============
 
-// ============= Componentes =============
+// ------------- SafeArea - Component -------------
+import SAContent from "../../Components/Presentaciones/Scroll/SA_ejemplo";
+
+// ------------- ScrollView - Component -------------
+import SVContent from "../../Components/Presentaciones/Scroll/SV_ejemplo";
 
 // import {} from "";
 
@@ -23,10 +27,16 @@ import { __ } from "../../Components/Elements/seprator";
 
 export default function SafeScreen() {
   return (
-    <View style={styles.container}>
-      <Text>Practica ## - </Text>
-      <Text>Equipo ##</Text>
-    </View>
+    <SafeAreaView>
+      <View style={styles.container}>
+        <Text style={styles.title}>Practica 10 - SAfeArea & ScrollViw ew</Text>
+        <Text style={styles.subtitle}>Equipo #1 - Dulce|Karla|Saul</Text>
+      </View>
+
+      <SAContent />
+      <SVContent />
+      
+    </SafeAreaView>
   );
 }
 
