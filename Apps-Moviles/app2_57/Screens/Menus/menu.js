@@ -28,14 +28,14 @@ import { gl_styles } from "../../styles/global";
 
 // ============= Pantallas =============
 
-import { CardScreen } from "../Presentations/cardScreen";
-import { SafeScreen } from "../Presentations/safeScreen";
-import { SwitchScreen } from "../Presentations/switchScreen";
-import { TextInputScreen } from "../Presentations/textInputScreen";
-import { FlatSectionScreen } from "../Presentations/textInputScreen";
-import { FlatSectionScreen2 } from "../Presentations/flatSectionScreen2";
-import { ImageSplashScreen } from "../Presentations/imageSplashScreen";
-import { ModalBottomSheetScreen } from "../Presentations/modalBottomSheetScreen";
+import CardScreen from "../Presentations/cardScreen";
+import SafeScreen from "../Presentations/safeScreen";
+import SwitchScreen from "../Presentations/switchScreen";
+import TextInputScreen from "../Presentations/textInputScreen";
+import FlatSectionScreen from "../Presentations/flatSectionScreen";
+import FlatSectionScreen2 from "../Presentations/flatSectionScreen2";
+import ImageSplashScreen from "../Presentations/imageSplashScreen";
+import ModalBottomSheetScreen from "../Presentations/modalBottomSheetScreen";
 
 // ===================================================
 //                   Zona del MAIN
@@ -181,7 +181,7 @@ export default function MenuScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "col",
+    flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
 

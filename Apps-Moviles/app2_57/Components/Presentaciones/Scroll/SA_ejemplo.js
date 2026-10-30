@@ -21,7 +21,7 @@ export default function SAContent() {
   const [msg, setMsg] = useState("Bienvenidos a nuestra practica");
 
   return (
-    <SafeAreaView style={[StyleSheet.container]} edges={["top", "bottom"]}>
+    <SafeAreaView style={style.container} edges={["top", "bottom"]}>
       <Text style={style.title}>Practica SafeArea</Text>
       <Text style={style.message}>{msg}</Text>
 
@@ -44,7 +44,6 @@ export default function SAContent() {
 const style = StyleSheet.create({
   container: {
     backgroundColor: "#333",
-    color: "blank",
     padding: 20,
     alignItems: "center",
     borderRadius: 10,

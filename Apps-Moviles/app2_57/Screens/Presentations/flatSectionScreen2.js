@@ -37,8 +37,8 @@ export default function FlatSectionScreen2() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "col",
-    justifyContent: "",
+    flexDirection: "column",
+    justifyContent: "flex-start",
     alignItems: "center",
 
     backgroundColor: "#cccccc",

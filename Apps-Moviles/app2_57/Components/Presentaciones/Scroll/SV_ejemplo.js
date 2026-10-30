@@ -24,7 +24,7 @@ export default function SVContent() {
       <Text style={style.title}>Ejemplo de ScrollView</Text>
       <Button
         title={slide ? "Desactivar desplazamiento" : "Activar desplazamiento"}
-        onclick={() => setSlid(!slide)}
+        onPress={() => setSlid(!slide)}
       />
       <ScrollView
         style={style.lista}
@@ -48,12 +48,11 @@ export default function SVContent() {
 const style = StyleSheet.create({
   container: {
     backgroundColor: "#dee2ff",
-    fontFamily: ["system-ui", "Lucida Sans", "-apple-system"],
     padding: 20,
   },
   title: {
     fontFamily: "Roboto",
-    fontWeight: "bolder",
+    fontWeight: "bold",
     textAlign: "center",
     marginBottom: 10,
   },

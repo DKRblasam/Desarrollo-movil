@@ -29,7 +29,7 @@ export default function SafeScreen() {
   return (
     <SafeAreaView>
       <View style={styles.container}>
-        <Text style={styles.title}>Practica 10 - SAfeArea & ScrollViw ew</Text>
+        <Text style={styles.title}>Practica 10 - SafeArea & ScrollView</Text>
         <Text style={styles.subtitle}>Equipo #1 - Dulce|Karla|Saul</Text>
       </View>
 
@@ -47,8 +47,8 @@ export default function SafeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "col",
-    justifyContent: "",
+    flexDirection: "column",
+    justifyContent: "flex-start",
     alignItems: "center",
 
     backgroundColor: "#cccccc",

@@ -37,8 +37,8 @@ export default function TextInputScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "col",
-    justifyContent: "",
+    flexDirection: "column",
+    justifyContent: "flex-start",
     alignItems: "center",
 
     backgroundColor: "#cccccc",
