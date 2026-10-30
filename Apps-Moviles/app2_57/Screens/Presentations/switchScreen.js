@@ -2,8 +2,9 @@
 //                Zona de importaciones
 // ===================================================
 
+import { useState } from 'react';
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Text, Switch, Pressable } from "react-native";
 
 // ============= Componentes =============
 
@@ -22,10 +23,28 @@ import { __ } from "../../Components/Elements/seprator";
 // ===================================================
 
 export default function SwitchScreen() {
-  return (
-    <View style={styles.container}>
-      <Text>Practica ## - </Text>
-      <Text>Equipo ##</Text>
+  const [on, setChange] = useState(false);
+  const [count, setCount] = useState(0);
+
+  return(
+    <View style = {styles.container}>
+      <Text style = {styles.title}> Practica 11 - Switch & Pressable </Text>
+      <Switch
+        value = {on}
+        onValueChange = {(valor) => setChange(valor)}
+      />
+      <Text style = {styles.msg}> Es switch esta: {on ? 'Encendido' : 'Apagado'}</Text>
+       
+      <Pressable
+        style = {styles.btn}
+        onPress = {() => setCount(count + 1)}
+      >
+        <Text style = {styles.msgbtn}> Presioname </Text>
+      </Pressable>
+
+      <Text style = {styles.msg}> Se ha presionado: {count}</Text>
+
+
     </View>
   );
 }
@@ -37,15 +56,28 @@ export default function SwitchScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "col",
-    justifyContent: "",
-    alignItems: "center",
-
-    backgroundColor: "#cccccc",
-
-    paddingTop: 20,
-    paddingBottom: 20,
-    paddingLeft: 30,
-    paddingRight: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#ffffff'
   },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 40,
+  },
+  msg: {
+    fontSize: 18,
+    marginVertical: 15
+  },
+  btn: {
+    backgroundColor: '#059669',
+    padding: 15,
+    borderRadius: 10,
+    marginTop: 30
+  },
+  msgbtn: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold'
+  }
 });
