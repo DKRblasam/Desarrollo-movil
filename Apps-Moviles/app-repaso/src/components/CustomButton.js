@@ -1,24 +1,31 @@
 import { Pressable, Text, StyleSheet } from "react-native";
 
-import { colors } from "@constants/themes";
+import { useTheme } from "@constants/themes";
 
-export default function CustomButton() {
+export default function CustomButton({ title = "Alias funcionando", onPress }) {
+  const { colors } = useTheme();
+
   return (
-    <Pressable style={styles.button}>
-      <Text style={styles.text}>Alias funcionando</Text>
+    <Pressable
+      onPress={onPress}
+      style={({ pressed }) => [
+        styles.button,
+        { backgroundColor: colors.primary, opacity: pressed ? 0.8 : 1 },
+      ]}
+    >
+      <Text style={[styles.text, { color: colors.onPrimary }]}>{title}</Text>
     </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: colors.primary,
     padding: 15,
-    borderRadius: 8,
+    borderRadius: 10,
   },
   text: {
-    color: "#FFFFFF",
     textAlign: "center",
     fontWeight: "bold",
+    fontSize: 16,
   },
 });

@@ -11,6 +11,7 @@ export const lightTheme = {
     text: "#1e293b",
     accent: "#d62839",
     onPrimary: "#ffffff",
+    border: "#cbd5e1",
   },
 };
 
@@ -24,6 +25,7 @@ export const darkTheme = {
     text: "#d7e3fc",
     accent: "#ff6b78",
     onPrimary: "#1e293b",
+    border: "#3b4a63",
   },
 };
 
