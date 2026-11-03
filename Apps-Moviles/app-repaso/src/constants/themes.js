@@ -27,6 +27,14 @@ export const darkTheme = {
   },
 };
 
+export const colors = {
+  primary: "#2563EB",
+  secondary: "#64748B",
+  background: "#F8FAFC",
+  text: "#1E293B",
+};
+
+
 const ThemeContext = createContext(lightTheme);
 
 export function ThemeProvider({ children }) {
