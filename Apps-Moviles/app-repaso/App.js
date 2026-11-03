@@ -1,20 +1,30 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+// ===================================================
+//                Zona de importaciones
+// ===================================================
+
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, Text, View } from "react-native";
+
+// ==================== Componentes ====================
+// -------------------- Pantallas --------------------
+import HomeScreen from "@/screens/HomeScreen";
 
 export default function App() {
-  return (
+  return <HomeScreen />;
+  /* return (
     <View style={styles.container}>
       <Text>Open up App.js to start working on your app!</Text>
       <StatusBar style="auto" />
     </View>
   );
+  */
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
