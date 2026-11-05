@@ -1,0 +1,36 @@
+# Dependencias
+node_modules/
+
+# Expo
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+
+# Builds nativos generados (Continuous Native Generation)
+/ios
+/android
+
+# Metro
+.metro-health-check*
+
+# Depuración
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+
+# Sistema operativo
+.DS_Store
+*.pem
+
+# Variables de entorno locales (nunca versionar secretos)
+.env
+.env.*
+!.env.example
+
+# Credenciales / firmas
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision

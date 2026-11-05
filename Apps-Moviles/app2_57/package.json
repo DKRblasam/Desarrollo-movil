@@ -4,7 +4,7 @@
   "main": "index.js",
   "dependencies": {
     "expo": "~57.0.26",
-    "expo-splash-screen": "^58.0.13",
+    "expo-splash-screen": "~57.0.11",
     "expo-status-bar": "~57.0.1",
     "react": "19.2.3",
     "react-dom": "19.2.3",
@@ -16,7 +16,13 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "lint": "eslint .",
+    "bundle": "expo export --platform android --platform web --output-dir dist"
   },
-  "private": true
+  "private": true,
+  "devDependencies": {
+    "eslint": "^9.39.5",
+    "eslint-config-expo": "~57.0.2"
+  }
 }

@@ -1,0 +1,126 @@
+import { useState, useEffect } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ImageBackground,
+  Button,
+  Image,
+} from "react-native";
+
+// Fuentes fuera del componente: evita crear un objeto nuevo en cada render
+const BG_MAIN = {
+  uri: "https://i.blogs.es/fb2535/hello-orange-2/1366_2000.webp",
+};
+const LOGO_APP = { uri: "https://reactnative.dev/img/tiny_logo.png" };
+const SPLASH_DURATION_MS = 3000;
+const BLUR_ON = 6;
+
+export default function ImageSplashScreen() {
+  /* ESTADOS */
+
+  const [showSplash, setShowSplash] = useState(true);
+  const [blurAmount, setBlurAmount] = useState(0);
+
+  /* SPLASHSCREEN (3 segundos) */
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowSplash(false);
+    }, SPLASH_DURATION_MS);
+    return () => clearTimeout(timer);
+  }, []);
+
+  /* SPLASHSCREEN (Fondo Negro y Cuadro Transparente) */
+  if (showSplash) {
+    return (
+      <View style={styles.splashBlackBackground}>
+        <View style={styles.transparentCard}>
+          <Image source={LOGO_APP} style={styles.logo} />
+          <Text style={styles.splashTitle}>Mi Aplicación</Text>
+          <Text style={styles.splashSubtitle}>Cargando experiencia...</Text>
+        </View>
+      </View>
+    );
+  }
+
+  /* PANTALLA PRINCIPAL (ImageBackground) */
+  return (
+    <ImageBackground
+      source={BG_MAIN}
+      style={styles.mainContainer}
+      resizeMode="cover"
+      blurRadius={blurAmount} // Prop controlada por el State
+    >
+      <View style={styles.mainCard}>
+        <Text style={styles.welcomeText}>¡Bienvenido a tu App!</Text>
+
+        <Button
+          title={blurAmount === 0 ? "Aplicar Desenfoque" : "Quitar Desenfoque"}
+          onPress={() => setBlurAmount((blur) => (blur === 0 ? BLUR_ON : 0))}
+        />
+      </View>
+    </ImageBackground>
+  );
+}
+
+const styles = StyleSheet.create({
+  // SplashScreen: Contenedor negro de fondo completo
+  splashBlackBackground: {
+    width: "100%",
+    flex: 1,
+    backgroundColor: "#000000",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 20,
+  },
+
+  // Cuadro transparente
+  transparentCard: {
+    backgroundColor: "rgba(255, 255, 255, 0.12)",
+    borderWidth: 1,
+    paddingVertical: 35,
+    paddingHorizontal: 20,
+    borderRadius: 20,
+    alignItems: "center",
+    width: "90%",
+  },
+
+  logo: {
+    width: 80,
+    height: 80,
+    marginBottom: 15,
+    resizeMode: "contain",
+  },
+  splashTitle: {
+    color: "#FFFFFF",
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 6,
+  },
+  splashSubtitle: {
+    color: "#CCCCCC",
+    fontSize: 14,
+  },
+
+  // Pantalla Principal
+  mainContainer: {
+    width: "100%",
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  mainCard: {
+    backgroundColor: "rgba(255, 255, 255, 0.85)",
+    padding: 30,
+    borderRadius: 18,
+    alignItems: "center",
+    width: "80%",
+  },
+  welcomeText: {
+    fontSize: 22,
+    fontWeight: "bold",
+    color: "#333333",
+    marginBottom: 20,
+    textAlign: "center",
+  },
+});
