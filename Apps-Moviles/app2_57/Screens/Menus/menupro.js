@@ -34,9 +34,10 @@ import { gl_styles } from "../../styles/global";
 // ============= Pantallas =============
 
 import CardScreen from "../Presentations/cardScreen";
-import SafeScreen  from "../Presentations/safeScreen";
+import SafeScreen from "../Presentations/safeScreen";
 import SwitchScreen from "../Presentations/switchScreen";
 import TextInputScreen from "../Presentations/textInputScreen";
+import ScreenPract from "../../Components/Presentaciones/Flat/Screen";
 // FIX: antes se importaba desde textInputScreen (archivo equivocado)
 import ScreenFlat from "../Presentations/flatSectionScreen";
 import FlatSectionScreen2 from "../Presentations/flatSectionScreen2";
@@ -87,7 +88,7 @@ const PRACTICAS = [
     title: "FlatList & SectionList",
     color: "#DB2777",
     author: "Natalia Zarate Cabanillas",
-    Screen: ScreenFlat,
+    Screen: ScreenPract,
   },
   {
     key: "lists2",
@@ -245,7 +246,9 @@ export default function MenuScreen() {
           />
         ))}
 
-        <Text style={styles.footer}>{PRACTICAS.length} prácticas disponibles</Text>
+        <Text style={styles.footer}>
+          {PRACTICAS.length} prácticas disponibles
+        </Text>
       </ScrollView>
     </SafeAreaView>
   );
