@@ -6,6 +6,7 @@ import ListsScreen from "@/screens/practices/ListsScreen";
 import FlatSectionScreen2 from "@/screens/practices/FlatSectionScreen2";
 import ImageSplashScreen from "@/screens/practices/ImageSplashScreen";
 import ModalBottomSheetScreen from "@/screens/practices/ModalBottomSheetScreen";
+import ActivityScreen from "@/screens/practices/ActivityScreen";
 
 // Una sola fuente de verdad del menú: agregar una práctica = agregar un objeto.
 export const PRACTICES = [
@@ -54,7 +55,7 @@ export const PRACTICES = [
     emoji: "🗂️",
     title: "FlatList & SectionList (2)",
     color: "#9333EA",
-    author: "Natalia Zarate Cabanillas",
+    author: "Gael ...",
     Screen: FlatSectionScreen2,
   },
   {
@@ -72,5 +73,13 @@ export const PRACTICES = [
     color: "#C2410C",
     author: "Iancarlo Abreu Martinez",
     Screen: ModalBottomSheetScreen,
+  },
+  {
+    key: "activity",
+    emoji: "⌨️",
+    title: "ActivityIndicator & KeyboardAvoidingView",
+    color: "#FF9C2B",
+    author: "Rene ...",
+    Screen: ActivityScreen,
   },
 ];
