@@ -1,11 +1,21 @@
 {
   "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowJs": true,
+    "checkJs": false,
     "jsx": "react-native",
+    "strict": false,
+    "noEmit": true,
+    "baseUrl": ".",
     "paths": {
-      "@/assets/*": ["./assets/*"],
-      "@/*": ["./src/*"]
+      "@/*": ["src/*"],
+      "@components/*": ["src/Components/*"],
+      "@screens/*": ["src/Screens/*"],
+      "@utils/*": ["src/utils/*"]
     }
   },
   "include": ["src", "index.js"],
-  "exclude": ["node_modules", "dist"]
+  "exclude": ["node_modules", "dist", ".expo"]
 }
