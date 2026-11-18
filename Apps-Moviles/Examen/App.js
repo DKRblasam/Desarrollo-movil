@@ -1,10 +1,21 @@
+// ===================================================
+//                   Zona de importaciones
+// ===================================================
+
+
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 
+import Antojos from '@screens/Antojo-express';
+
+// ===================================================
+//                   Zona del MAIN
+// ===================================================
+
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+    <View >
+      <Antojos />
       <StatusBar style="auto" />
     </View>
   );
@@ -13,8 +24,8 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
+    backgroundColor: '#f0dcca',
+    alignItems: 'start',
     justifyContent: 'center',
   },
 });
